@@ -14,9 +14,9 @@ body{
 }
 
 #input{
-    width: 60%;  
+    width: 70%;  
     position: absolute;
-    top: 80%;
+    top: 85%;
     left: 50%;
     transform: translate(-50%, -50%);    
     display: flex;
@@ -24,15 +24,20 @@ body{
     border: 2px solid yellow;
     justify-content: center;
     align-items: center;
+    padding: 25px;
 }
 
-.button{
-    font-size: 2.5em;
+
+/*  INPUT - BUTTONS */
+.button{    
+    font-size: 2em;
     color: #0c0c0c;
-    height: calc((100% / 13) - 15px);
-    width: calc((100% / 13) - 15px);   
+    /* height: calc((100% / 13) - 15px);
+    width: calc((100% / 13) - 15px);   */
+     height: calc(7% - 15px);
+    width: calc(7% - 15px);   
     outline: none;
-    margin: 5px;
+    margin: 10px;
     border: none;
     cursor: pointer;
     text-transform: uppercase;
@@ -59,5 +64,142 @@ body{
                 0 0 0 5px #181818,
                  0 0 0 7px #00ffe7,
                  0 0 15px 8px #00a1ff;
+}
+
+/* OUTPUT CUBE */
+
+.inside-wall.x
+{
+   transform: rotateY(90deg); 
+}
+
+.inside-wall.y
+{
+   transform: rotateX(90deg); 
+}
+
+.inside-wall.z
+{
+   transform: rotateY(0); 
+}
+
+.output
+{
+    perspective: 1200px;
+    width: 80%;
+    height: 100px;
+    border: black solid 5px;
+}
+
+.cube
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;   
+    transform-style: preserve-3d;
+    animation-name: rotate-cube;
+    animation-duration: 1.5s;    
+    width: 60px;
+    height: 60px;    
+}
+
+.wall, .inside-wall
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;      
+}
+
+.wall
+{
+    background: #1b1b1b;
+     box-shadow:inset 0 0 1px 1px #000000,
+                inset 0 0 5px 2px #000000;
+    border-radius: 25px;        
+}
+
+.inside-wall
+{
+    position: absolute;    
+    box-shadow: none;
+    background: #000000;   
+}
+
+
+.wall-front
+{     
+    transform: translateZ(30px) rotateX(180deg);    
+}
+
+.front-inner
+{
+    transform: translateZ(29px);  
+}
+
+.wall-back
+{
+    transform: translateZ(-30px); 
+}
+
+.back-inner
+{
+    transform: translateZ(-29px); 
+}
+
+.wall-right
+{
+    transform: translateX(30px) rotateY(90deg);   
+}
+
+.right-inner
+{
+    transform: translateX(29px) rotateY(90deg);
+}
+
+.wall-left
+{
+    transform: translateX(-30px) rotateY(90deg);  
+}
+
+.left-inner
+{
+    transform: translateX(-29px) rotateY(90deg);
+}
+
+.wall-top
+{
+    transform: translateY(30px) rotateX(90deg);  
+}
+
+.top-inner
+{
+    transform: translateY(29px) rotateX(90deg); 
+}
+
+.wall-bottom
+{
+    transform: translateY(-30px) rotateX(90deg);   
+}
+
+.bottom-inner
+{
+    transform: translateY(-29px) rotateX(90deg); 
+}
+
+
+
+/* ANIMATIONS */
+
+@keyframes rotate-cube
+{
+    0%{
+        transform: rotate3d(0,0,0,0deg);
+    }
+
+    100%{
+        transform: rotate3d(1,1,0,180deg);
+    }
 }
 
