@@ -11,6 +11,7 @@ body{
     overflow: hidden;
     margin: 0 auto;
     background-color: #116466;
+    font-family: 'Roboto', sans-serif;
 }
 
 #input{
@@ -68,20 +69,6 @@ body{
 
 /* OUTPUT CUBE */
 
-.inside-wall.x
-{
-   transform: rotateY(90deg); 
-}
-
-.inside-wall.y
-{
-   transform: rotateX(90deg); 
-}
-
-.inside-wall.z
-{
-   transform: rotateY(0); 
-}
 
 .output
 {
@@ -91,18 +78,27 @@ body{
     border: black solid 5px;
     display: flex;
     justify-content: center;
-    
+}
 
+.wall-text
+{
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;   
+    transform: translate(-50%, -50%);  
+    color: thistle;
+    text-align: center;    
+    font-size: 4em;
+    font-weight: bold;
+    color: #0c0c0c;
 }
 
 .cube
-{
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%;    */
+{    
     transform-style: preserve-3d;
     animation-name: rotate-cube;
-    animation-duration: 1.5s;    
+    animation-duration: 5s;    
     width: 60px;
     height: 60px;
     margin: 5px; 
@@ -132,10 +128,9 @@ body{
     background: #1f1e1e;   
 }
 
-
 .wall-front
 {     
-    transform: translateZ(30px) rotateX(180deg);    
+    transform: translateZ(30px);    
 }
 
 .front-inner
@@ -193,6 +188,21 @@ body{
     transform: translateY(-29px) rotateX(90deg); 
 }
 
+.inside-wall.x
+{
+   transform: rotateY(90deg); 
+}
+
+.inside-wall.y
+{
+   transform: rotateX(90deg); 
+}
+
+.inside-wall.z
+{
+   transform: rotateY(0); 
+}
+
 
 
 /* ANIMATIONS */
@@ -204,7 +214,7 @@ body{
     }
 
     100%{
-        transform: rotate3d(1,1,0,180deg);
+        transform: rotate3d(1,1,0,360deg);
     }
 }
 

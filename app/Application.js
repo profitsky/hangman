@@ -1,27 +1,19 @@
  import { Movies } from "./Movies.js";
 
- class Application
- {
+ class Application{
 
-   constructor({inputWrapper,cubeWrapper,outputWrapper})
-    {
+   constructor({inputWrapper,cubeWrapper,outputWrapper}){
+
         this.inputWrapper = inputWrapper;
         this.cubeWrapper = cubeWrapper;
         this.outputWrapper = outputWrapper;
-        this.movie = new Movies();
-        
-                
-       
-        
-        
-    }
+        this.movie = new Movies();           
+    };
 
-    selectMovie()
-    {
+    selectMovie(){
+
         console.log(this.movie.properties.title);
-    }
-
-
+    };
 
     createButtons(){
 
@@ -35,24 +27,35 @@
             }; 
     };
 
-    createCubes()
-    {
-        
+    createCubes(){
+
         for (let i =0; i < this.movie.properties.title.length - 1; i++ )
-        this.outputWrapper.appendChild(this.cubeWrapper.cloneNode(true));
+        this.outputWrapper.appendChild(this.cubeWrapper.cloneNode(true));         
+    };
 
-        console.log(this.cubeWrapper)
-       
-    }
+    loadTileToQubes()
+    {
+        for (let i =0 ; i < this.movie.properties.title.length; i++)
+        {
+            if(this.movie.properties.title[i] == " ")
+            {
+                this.outputWrapper.querySelectorAll(".question-mark")[i].innerText = " ";
+                this.outputWrapper.querySelectorAll(".letter-mark")[i].innerText = " ";
+            } else
+            {
+                this.outputWrapper.querySelectorAll(".question-mark")[i].innerText = "?";
+                this.outputWrapper.querySelectorAll(".letter-mark")[i].innerText = this.movie.properties.title[i];
+            }
+        }
+    };
 
-
-
-    load()
-    {       
-        this.createButtons();
-        this.selectMovie();
+    load(){
         this.createCubes();
-            
+        this.loadTileToQubes();
+        this.createButtons();        
+        
+        // this.outputWrapper.querySelectorAll(".question-mark")[0].innerText = "C";
+        // console.log(this.outputWrapper.querySelectorAll(".question-mark")[0])
     };
  };
 
