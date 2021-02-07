@@ -1,0 +1,63 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    z-index: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: #116466;
+}
+
+#input{
+    width: 60%;  
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);    
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid yellow;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    font-size: 2.5em;
+    color: #0c0c0c;
+    height: calc((100% / 13) - 15px);
+    width: calc((100% / 13) - 15px);   
+    outline: none;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background-color: #1b1b1b;
+    box-shadow: 0 8px 3px rgba(0, 0, 0, 1),
+                inset 0 -2px 5px rgba(0, 0, 0, 1),
+                inset 0 2px 2px rgba(255, 255, 255, 0.5),
+                0 0 0 2px #000,
+                0 0 0 5px #181818,
+                0 0 0 7px #080808;
+}
+
+.button:active{
+    color: #00ffe7;
+    text-shadow: 0 0 15px #00a1ff,
+                 0 0 30px #00a1ff;
+    box-shadow: inset 0  2px 5px rgba(0, 0, 0, 0.5),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.5),
+                inset -2px 0 5px rgba(0, 0, 0, 0.5),
+                inset 2px 0 5px rgba(0, 0, 0, 0.5),                
+                0 0 2px 2px #000,
+                inset 0 0 0 1px #000,
+                0 0 0 5px #181818,
+                 0 0 0 7px #00ffe7,
+                 0 0 15px 8px #00a1ff;
+}
+
