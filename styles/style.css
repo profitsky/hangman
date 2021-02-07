@@ -43,11 +43,11 @@ body{
     text-transform: uppercase;
     border-radius: 10px;
     background-color: #1b1b1b;
-    box-shadow: 0 8px 3px rgba(0, 0, 0, 1),
+    box-shadow: 0 8px 3px rgba(15, 15, 15, 1),
                 inset 0 -2px 5px rgba(0, 0, 0, 1),
                 inset 0 2px 2px rgba(255, 255, 255, 0.5),
                 0 0 0 2px #000,
-                0 0 0 5px #181818,
+                0 0 0 5px #313131,
                 0 0 0 7px #080808;
 }
 
@@ -61,7 +61,7 @@ body{
                 inset 2px 0 5px rgba(0, 0, 0, 0.5),                
                 0 0 2px 2px #000,
                 inset 0 0 0 1px #000,
-                0 0 0 5px #181818,
+                0 0 0 5px #313131,
                  0 0 0 7px #00ffe7,
                  0 0 15px 8px #00a1ff;
 }
@@ -85,22 +85,27 @@ body{
 
 .output
 {
-    perspective: 1200px;
+    /* perspective: 1200px; */
     width: 80%;
     height: 100px;
     border: black solid 5px;
+    display: flex;
+    justify-content: center;
+    
+
 }
 
 .cube
 {
-    position: absolute;
-    top: 50%;
-    left: 50%;   
+    /* position: absolute; */
+    /* top: 50%;
+    left: 50%;    */
     transform-style: preserve-3d;
     animation-name: rotate-cube;
     animation-duration: 1.5s;    
     width: 60px;
-    height: 60px;    
+    height: 60px;
+    margin: 5px; 
 }
 
 .wall, .inside-wall
@@ -114,9 +119,9 @@ body{
 
 .wall
 {
-    background: #1b1b1b;
-     box-shadow:inset 0 0 1px 1px #000000,
-                inset 0 0 5px 2px #000000;
+    background: #313131;
+     box-shadow:inset 0 0 0px 3px #000000,
+                inset 0 0 4px 5px #1a1919;
     border-radius: 25px;        
 }
 
@@ -124,7 +129,7 @@ body{
 {
     position: absolute;    
     box-shadow: none;
-    background: #000000;   
+    background: #1f1e1e;   
 }
 
 
