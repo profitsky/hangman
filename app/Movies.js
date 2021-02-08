@@ -3,13 +3,9 @@ export class Movies{
   constructor()
   {
     this.properties = this.getMovie();
-
+    this.indexes = [];
+  
   };
-
-  
-  
-
-
 
 
     movieTitles =[
@@ -47,6 +43,23 @@ export class Movies{
       let movie = this.movieTitles[index];
 
       return movie;
+    }
+
+    getLetterIndexes(letter, title)
+    {
+      
+      let index = -1;
+        
+      Array.from(title).forEach(char => {
+
+        index++
+
+        if(char === letter || char === " ")
+        {
+           this.indexes.push(index)        
+        }
+        
+      });          
     }
 
 };

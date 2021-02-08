@@ -7,55 +7,70 @@
         this.inputWrapper = inputWrapper;
         this.cubeWrapper = cubeWrapper;
         this.outputWrapper = outputWrapper;
-        this.movie = new Movies();           
-    };
-
-    selectMovie(){
-
-        console.log(this.movie.properties.title);
-    };
+        this.movie = new Movies();
+        this.title = this.movie.properties.title;
+        this.indexes = this.movie.indexes;
+        this.ketboardLock = false;      
+    };    
 
     createButtons(){
 
-        for(let i = 10; i < 36; i++)
+        for(let i = 0; i < 26; i++)
             {
                 const btn = document.createElement("button");
-                const label = (i).toString(36);
+                const label = (i+10).toString(36);
                 btn.innerText = label;
                 btn.classList.add("button");
+                btn.addEventListener("click", () =>{
+                            this.checkLetter(label, i);
+                });
                 this.inputWrapper.appendChild(btn);                             
             }; 
     };
 
     createCubes(){
 
-        for (let i =0; i < this.movie.properties.title.length - 1; i++ )
+        for (let i =0; i < this.title.length - 1; i++ )
         this.outputWrapper.appendChild(this.cubeWrapper.cloneNode(true));         
     };
 
     loadTileToQubes()
     {
-        for (let i =0 ; i < this.movie.properties.title.length; i++)
+        for (let i =0 ; i < this.title.length; i++)
         {
-            if(this.movie.properties.title[i] == " ")
+            if(this.title[i] == " ")
             {
                 this.outputWrapper.querySelectorAll(".question-mark")[i].innerText = " ";
+                this.outputWrapper.querySelectorAll(".cube")[i].classList.add("rotate-cube");              
                 this.outputWrapper.querySelectorAll(".letter-mark")[i].innerText = " ";
+                
             } else
             {
                 this.outputWrapper.querySelectorAll(".question-mark")[i].innerText = "?";
-                this.outputWrapper.querySelectorAll(".letter-mark")[i].innerText = this.movie.properties.title[i];
+                this.outputWrapper.querySelectorAll(".letter-mark")[i].innerText = this.title[i];
+                this.outputWrapper.querySelectorAll(".letter-mark")[i].classList.add("light-on");           
             }
         }
+    };
+
+   
+
+    checkLetter(key, i)
+    {     
+         this.movie.getLetterIndexes(key.toUpperCase(), this.title.toUpperCase());
+
+         this.inputWrapper.querySelectorAll("button")[i].classList.add("active");
+
+         this.movie.indexes.forEach((index, i) => {
+            setTimeout(() => {this.outputWrapper.querySelectorAll(".cube")[index].classList.add("rotate-cube") }, i *50)             
+         });         
     };
 
     load(){
         this.createCubes();
         this.loadTileToQubes();
-        this.createButtons();        
-        
-        // this.outputWrapper.querySelectorAll(".question-mark")[0].innerText = "C";
-        // console.log(this.outputWrapper.querySelectorAll(".question-mark")[0])
+        this.createButtons(); 
+        this.rotateCube(1);
     };
  };
 
