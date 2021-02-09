@@ -14,13 +14,10 @@
 
 <body>
     <div class="game-container">
-        <section class="contol-container">
-            <div class="left-knob control panel">
-                <div class="bottom-section">
-
-                </div>
-            </div>
+        <section id="display" class="top-section wrapper">
             <div class="output">
+                <div id="led-display">
+                </div>
                 <div class="cube">
                     <!--TOP WALL -->
                     <div class="wall wall-front">
@@ -49,10 +46,13 @@
                     <div class="inside-wall y"></div>
                     <div class="inside-wall z"></div>
                 </div>
+            </div>
         </section>
-    </div>
-    <div id="input" class="input-keys">
-    </div>
+        <section id="flamer" class="middle-section wrapper">
+        </section>
+        <section id="cooker" class="bottom-setcion wrapper">
+            <div id="input" class="input-keys"></div>
+        </section>
 
     </div>
     <script src="./app/Application.js" type="module"></script>

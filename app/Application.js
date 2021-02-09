@@ -1,14 +1,17 @@
- import { Movies } from "./Movies.js";
+ import { Movies} from "./Movies.js";
+ import { Light} from "./LightController.js";
 
  class Application{
 
-   constructor({inputWrapper,cubeWrapper,outputWrapper}){
+   constructor({inputWrapper, cubeWrapper, outputWrapper, ledDisplayWrapper}){
 
         this.inputWrapper = inputWrapper;
         this.cubeWrapper = cubeWrapper;
         this.outputWrapper = outputWrapper;
-        this.movie = new Movies();
+        this.ledDisplayWrapper = ledDisplayWrapper;
+        this.movie = new Movies();        
         this.title = this.movie.properties.title;
+        this.light = new Light(this.title.length, this.ledDisplayWrapper);
         this.indexes = this.movie.indexes;
         this.ketboardLock = false;      
     };    
@@ -63,14 +66,24 @@
 
          this.movie.indexes.forEach((index, i) => {
             setTimeout(() => {this.outputWrapper.querySelectorAll(".cube")[index].classList.add("rotate-cube") }, i *50)             
-         });         
+         }); 
+        
+         this.indexes =[]
     };
 
+    
+
     load(){
+
+      
+
+
+
         this.createCubes();
         this.loadTileToQubes();
         this.createButtons(); 
-        this.rotateCube(1);
+        // this.rotateCube();
+        this.light.generateLed();
     };
  };
 
@@ -79,7 +92,8 @@
  const application = new Application({
      inputWrapper: document.getElementById("input"),
      cubeWrapper: document.querySelector(".cube"),
-     outputWrapper: document.querySelector(".output")
+     outputWrapper: document.querySelector(".output"),
+     ledDisplayWrapper: document.querySelector("#led-display")
     
  });
 

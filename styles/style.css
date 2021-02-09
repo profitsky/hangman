@@ -10,8 +10,112 @@ body{
     width: 100vw;
     overflow: hidden;
     margin: 0 auto;
-    background-color: #116466;
+    background-color: #1b1b1b;
     font-family: 'Roboto', sans-serif;
+}
+
+.game-container
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1280px;
+    height: 100%;
+    display: flex;
+    justify-content: center;    
+    flex-wrap: nowrap;
+    flex-direction: column;
+    border: 2px yellow solid;
+}
+
+.wrapper
+{    
+    height: 60px;    
+    margin: 10px;    
+    background: linear-gradient(#807f7f 0%, #313131 20px, #1b1b1b);
+    border-radius: 10px;    
+}
+
+/*  TOP SECTION */
+
+.top-section.wrapper
+{
+    position: relative;
+    height: 120px;
+}
+
+.top-section.wrapper::before
+{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 0;    
+}
+
+.output{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;   
+    height: 80px;
+    padding: 20px;
+    border-radius: 20px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c0c0c;
+    border: 2px black solid;
+    box-shadow: inset 0 0 2px 2px rgb(15, 15, 15),
+                0 0 0 2px #000,
+                0 0 0 5px #313131,
+                0 0 0 7px #080808;
+}
+
+#led-display
+{
+    position: absolute;    
+    height: 100%;
+    width: 100%;    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.led-dot:nth-child(1){
+    position: absolute;
+    border-radius: unset;
+    height: 40px;
+    width: 80%;
+    margin-left: 25px;
+}
+
+.led-dot
+{    
+    width: 5px;
+    height: 5px;
+    margin: 5px;
+    border-radius: 50%;
+    background-color: white;
+    
+}
+
+
+.middle-section.wrapper
+{
+    flex-grow: 5;
+}
+
+.bottom-setcion.wrapper
+{
+    flex-grow: 2;
 }
 
 #input{
@@ -35,8 +139,8 @@ body{
     color: #0c0c0c;
     /* height: calc((100% / 13) - 15px);
     width: calc((100% / 13) - 15px);   */
-     height: calc(7% - 15px);
-    width: calc(7% - 15px);   
+    height: calc(7% - 10px);
+    width: calc(7% - 10px);   
     outline: none;
     margin: 10px;
     border: none;
@@ -73,26 +177,18 @@ body{
 /* OUTPUT CUBE */
 
 
-.output
-{
-    /* perspective: 1200px; */
-    width: 80%;
-    height: 100px;
-    border: black solid 5px;
-    display: flex;
-    justify-content: center;
-}
+
+
 
 .wall-text
-{
-    
+{    
     position: absolute;
     top: 50%;
     left: 50%;   
     transform: translate(-50%, -50%);  
     color: thistle;
     text-align: center;    
-    font-size: 2.5em;
+    font-size: 1.8em;
     font-weight: bold;
     color: #0c0c0c;
     text-transform: uppercase;
@@ -101,18 +197,18 @@ body{
 .cube
 {    
     transform-style: preserve-3d;
-        
-    width: 60px;
-    height: 60px;
-    margin: 5px; 
+    width: 40px;
+    height: 40px;    
+    margin-left: 4px;
+    margin-right: 4px;
+    
 }
 
 .cube.rotate-cube
 {
     animation-name: rotate-cube;
     animation-duration: 1s;
-    animation-fill-mode: forwards;
-    
+    animation-fill-mode: forwards;    
 }
 
 .wall, .inside-wall
@@ -121,7 +217,8 @@ body{
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;      
+    height: 100%;
+    
 }
 
 .wall
@@ -141,62 +238,62 @@ body{
 
 .wall-front
 {     
-    transform: translateZ(30px);    
+    transform: translateZ(20px);    
 }
 
 .front-inner
 {
-    transform: translateZ(29px);  
+    transform: translateZ(19px);  
 }
 
 .wall-back
 {
-    transform: translateZ(-30px) rotateZ(-90deg) rotateY(180deg); 
+    transform: translateZ(-20px) rotateZ(-90deg) rotateY(180deg); 
 }
 
 .back-inner
 {
-    transform: translateZ(-29px); 
+    transform: translateZ(-19px); 
 }
 
 .wall-right
 {
-    transform: translateX(30px) rotateY(90deg);   
+    transform: translateX(20px) rotateY(90deg);   
 }
 
 .right-inner
 {
-    transform: translateX(29px) rotateY(90deg);
+    transform: translateX(19px) rotateY(90deg);
 }
 
 .wall-left
 {
-    transform: translateX(-30px) rotateY(90deg);  
+    transform: translateX(-20px) rotateY(90deg);  
 }
 
 .left-inner
 {
-    transform: translateX(-29px) rotateY(90deg);
+    transform: translateX(-19px) rotateY(90deg);
 }
 
 .wall-top
 {
-    transform: translateY(30px) rotateX(90deg);  
+    transform: translateY(20px) rotateX(90deg);  
 }
 
 .top-inner
 {
-    transform: translateY(29px) rotateX(90deg); 
+    transform: translateY(19px) rotateX(90deg); 
 }
 
 .wall-bottom
 {
-    transform: translateY(-30px) rotateX(90deg);   
+    transform: translateY(-20px) rotateX(90deg);   
 }
 
 .bottom-inner
 {
-    transform: translateY(-29px) rotateX(90deg); 
+    transform: translateY(-19px) rotateX(90deg); 
 }
 
 .inside-wall.x
@@ -217,8 +314,8 @@ body{
 .light-on
 {
     color: #00ffe7;
-    text-shadow: 0 2px 15px #00a1ff,
-                 0 0 30px #00a1ff;
+    text-shadow: 0 5px 30px #00a1ff,
+                 0 0 50px #00a1ff;
 }
 
 
