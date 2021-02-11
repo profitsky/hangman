@@ -74,39 +74,52 @@ body{
                 0 0 0 2px #000,
                 0 0 0 5px #313131,
                 0 0 0 7px #080808;
+                overflow: hidden;
 }
 
 #led-display
 {
     position: absolute;    
     height: 100%;
-    width: 100%;    
+    width: 100%;  
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     
-
 }
 
-.led-dot:nth-child(1){
+/* .led-dot:nth-child(1){
     position: absolute;
     border-radius: unset;
     height: 40px;
     width: 80%;
     margin-left: 25px;
-}
+} */
 
 .led-dot
-{    
-    width: 5px;
-    height: 5px;
-    margin: 5px;
-    border-radius: 50%;
-    background-color: white;
-    
+{   
+    height: 25%;     
+    border: rgba(36, 35, 35, 0.2) solid 1px;
+    overflow: hidden; 
+    z-index: -10;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
 }
 
+.dot{
+
+    background-color: rgba(36, 35, 35, 0.2);    
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;    
+}
+
+.dot.welcome-animation
+{
+    animation: ;
+}
 
 .middle-section.wrapper
 {
@@ -172,14 +185,7 @@ body{
                  0 0 15px 8px #00a1ff;
 }
 
-
-
 /* OUTPUT CUBE */
-
-
-
-
-
 .wall-text
 {    
     position: absolute;
@@ -331,5 +337,10 @@ body{
     100%{
         transform: rotate3d(1,1,0,180deg);
     }
+}
+
+@keyframes welcomeDot
+{
+
 }
 
