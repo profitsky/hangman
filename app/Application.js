@@ -69,15 +69,9 @@
          }); 
         
          this.indexes =[]
-    };
-
-    
+    };    
 
     load(){
-
-      
-
-
 
         this.createCubes();
         this.loadTileToQubes();
@@ -87,9 +81,7 @@
     };
  };
 
-
-
- const application = new Application({
+     const application = new Application({
      inputWrapper: document.getElementById("input"),
      cubeWrapper: document.querySelector(".cube"),
      outputWrapper: document.querySelector(".output"),

@@ -3,16 +3,14 @@ export class Light
     constructor(ledNumber, container)
     {
         this.ledNumber = ledNumber;
-        this.container = container;
-               
+        this.container = container;               
     };
 
     generateLed()
     {
         let i = 0;
         for (i = 0; i < (this.ledNumber*12); i++)
-        {     
-                  
+        {                    
             let led = document.createElement("div");            
             led.classList.add("led-dot");            
             this.container.appendChild(led);
@@ -30,7 +28,7 @@ export class Light
 
     runAnimation()
     {
-        
+
     }
 
     
