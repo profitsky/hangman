@@ -1,5 +1,6 @@
  import { Movies} from "./Movies.js";
  import { Light} from "./LightController.js";
+ import { PanelController} from "./PanelController.js";
 
  class Application{
 
@@ -8,7 +9,8 @@
         this.inputWrapper = inputWrapper;
         this.cubeWrapper = cubeWrapper;
         this.outputWrapper = outputWrapper;
-        this.ledDisplayWrapper = ledDisplayWrapper;
+        this.ledDisplayWrapper = ledDisplayWrapper;        
+        this.controlPanel = new PanelController();
         this.movie = new Movies();        
         this.title = this.movie.properties.title;
         this.light = new Light(this.title.length, this.ledDisplayWrapper);
@@ -75,9 +77,11 @@
 
         this.createCubes();
         this.loadTileToQubes();
-        this.createButtons(); 
+        // this.createButtons(); 
         // this.rotateCube();
         this.light.generateLed();
+        this.controlPanel.prrintElement();
+        // this.controlPanel.generateHeatDots();
     };
  };
 
@@ -85,8 +89,7 @@
      inputWrapper: document.getElementById("input"),
      cubeWrapper: document.querySelector(".cube"),
      outputWrapper: document.querySelector(".output"),
-     ledDisplayWrapper: document.querySelector("#led-display")
-    
+     ledDisplayWrapper: document.querySelector("#led-display")        
  });
 
  application.load();

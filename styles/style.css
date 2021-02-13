@@ -10,7 +10,7 @@ body{
     width: 100vw;
     overflow: hidden;
     margin: 0 auto;
-    background-color: #1b1b1b;
+    background-color: #1b1b1b;    
     font-family: 'Roboto', sans-serif;
 }
 
@@ -132,17 +132,18 @@ body{
 
 #handle
 {
-
+    margin: 20px;
 }
 
 #window
 {
-    flex-grow: 4    ;
+    flex-grow: 4;
+    
 }
 
 #bottom-cover
 {
-
+    width: 100%;
 }
 
 /*  BOTTOM SECTION */
@@ -152,22 +153,28 @@ body{
     height: 150px;
     display: flex;
     align-items: center;
-    
+    justify-content: center;    
 }
 
-.bottom-feature
+.bttm-section
 {
-    position: relative;
     height: 65%;
-    width: 15%;
-    margin:  0 30px;
-                 
+    width: 25%;
+    position: relative;     
 }
 
-.bottom-feature.midlle-bottom
+.bttm-section.middle-section
+{
+    flex-grow: 8;   
+}
+
+
+#display-bttm.output
 {
     background-color: #0c0c0c ;
-     border-radius: 10px;    
+    width: 90%;
+    height: 90%;   
+    border-radius: 10px;    
     box-shadow: inset 0 0 2px 3px rgb(15, 15, 15),
                 0 0 0 2px #000,
                 0 0 0 5px #313131,
@@ -176,27 +183,106 @@ body{
                 0 40px 20px 10px rgba(0, 0, 0, 0.5);    
 }
 
-#disply-section.bottom-feature
+.knob
 {
-    flex-grow: 9;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;   
+    box-shadow: 0px 0px 0px 0px rgba(23, 23, 23, 0.9),
+                0 0 10px 1px rgba(15, 15, 15, 0.9),
+                0 0 2px 3px rgb(15, 15, 15),                
+                inset rgba(38, 38, 38, 0.8) 0 -1px 5px 2px,
+                inset rgba(0, 0, 0, 0) 0 0 0px 0,
+                inset rgba(255, 255, 255, 0.7) 0  2px 1px 3px, 
+                rgba(0, 0, 0, 0.15) 0 -2px 2px 2px,
+                rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
+
+    background: repeating-radial-gradient(circle, transparent 0px, transparent 2%, rgba(77, 76, 76, 0.3) 4%),
+    repeating-conic-gradient(from 0deg, transparent 0deg 30deg,  rgba(255, 255, 255, 0.3) 30deg 60deg, rgba(252, 247, 247, 0.3) 60deg 90deg);
+    transition: box-shadow 0.5s;     
 }
 
-.side-bottom
+.knob.unpressed
 {
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;   
     box-shadow: 0px 20px 10px 0px rgba(23, 23, 23, 0.9),
                 0 0 10px 8px rgba(15, 15, 15, 0.9),
                 0 0 2px 3px rgb(15, 15, 15),                
-                inset hsla(0,0%,15%, .8) 0 -1px 2px 2px,
-                inset hsla(0,0%,0%, .25) 0 -1px 0px 3px,
-                inset hsla(0,0%,100%,.7) 0  2px 1px 3px, 
-                hsla(0,0%, 0%,.15) 0 -2px 2px 2px,
-              rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
+                inset rgba(38, 38, 38, 0.8) 0 -1px 2px 2px,
+                inset rgba(0, 0, 0, 0.25) 0 -1px 0px 3px,
+                inset rgba(255, 255, 255, 0.7) 0  2px 1px 3px, 
+                rgba(0, 0, 0, 0.15) 0 -2px 2px 2px,
+                rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
+    transition: box-shadow 0.5s;   
+}
 
-    background: repeating-radial-gradient(circle, transparent 0px, transparent 2%, rgba(77, 76, 76, 0.3) 4%),
-    repeating-conic-gradient(from 0deg, transparent 0deg 30deg,  rgba(255, 255, 255, 0.3) 30deg 60deg, rgba(252, 247, 247, 0.3) 60deg 90deg);    
+.knob-indicator
+{   
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 3px;
+    border-radius: 25%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px black solid;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5),
+               inset 0 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.knob-label span
+{
+    text-transform: uppercase;
+    position: absolute;
+    top: 50%;
+    left: 50%;       
+    color: #0c0c0c;
+    /* text-shadow: 1px -1px 2px rgba(0, 0, 0, 0.5),
+                 1px 1px 2px rgba(0, 0, 0, 0.5),
+                 -1px 1px 2px rgba(0, 0, 0, 0.5),
+                 -1px -1px 2px rgba(0, 0, 0, 0.5); */
+    font-weight: bold;
+    letter-spacing: 2px;    
+}
+
+#off-label
+{
+    transform: translate(-82px, -50%)
+}
+
+#on-label
+{
+    transform: translate(50px, -50%)
+}
+
+#heat-label
+{    
+    width: 100%;
+    height: 140%;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heat-dot
+{
+    width: 8px;
+    height: 8px;
+    position: absolute;
+       
+    border-radius: 50%;
+    background-color: #0c0c0c;
+    border: 1px solid black;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5),
+                inset 0 0 1px 1px rgba(14, 13, 13, 0.5);
 }
 
 
