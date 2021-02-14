@@ -160,7 +160,10 @@ body{
 {
     height: 65%;
     width: 25%;
-    position: relative;     
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
 
 .bttm-section.middle-section
@@ -185,10 +188,10 @@ body{
 
 .knob
 {
-    position: absolute;
+    /* position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     height: 80px;
     width: 80px;
     border-radius: 50%;   
@@ -203,7 +206,11 @@ body{
 
     background: repeating-radial-gradient(circle, transparent 0px, transparent 2%, rgba(77, 76, 76, 0.3) 4%),
     repeating-conic-gradient(from 0deg, transparent 0deg 30deg,  rgba(255, 255, 255, 0.3) 30deg 60deg, rgba(252, 247, 247, 0.3) 60deg 90deg);
-    transition: box-shadow 0.5s;     
+    transition: box-shadow 0.5s;
+    cursor: pointer;
+    transform: rotate(0deg);
+    
+    
 }
 
 .knob.unpressed

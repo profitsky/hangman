@@ -56,9 +56,7 @@
                 this.outputWrapper.querySelectorAll(".letter-mark")[i].classList.add("light-on");           
             }
         }
-    };
-
-   
+    };   
 
     checkLetter(key, i)
     {     
@@ -79,8 +77,7 @@
         this.loadTileToQubes();
         // this.createButtons(); 
         // this.rotateCube();
-        this.light.generateLed();
-        this.controlPanel.prrintElement();
+        this.light.generateLed();       
         // this.controlPanel.generateHeatDots();
     };
  };
