@@ -10,15 +10,12 @@ export class PanelController
     isRightPressed = true;
     knobMousePressed = false;
     isAngleValueReadable = false;
-    angleStartValue = 0;
-    knobAngle = 0;
-    rotation = 0;
+    angleStartValue = 0;    
     radianToDeg = 180/Math.PI;
-    angleValue =0;
-    rotation = 0;
-    angle = 0;
-    lastNotedAngleValue = 0;
+    angleValue =0; 
+    angle = 0; 
     indicatorAngle = 0;
+   
 
     objectGeomProperties = {
 
@@ -100,25 +97,13 @@ export class PanelController
         this.buttonWrapper.forEach(knob =>{
         knob.addEventListener("mousemove", (e) => {                           
                 
-            if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable == true && knob.classList.contains("power-knob"))
+            if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable === true && knob.classList.contains("power-knob"))
             {
                 let x = e.clientX - this.objectGeomProperties.centerX;
                 let y = e.clientY - this.objectGeomProperties.centerY;
                 this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
-                this.indicatorAngle = (this.angleValue - this.angleStartValue)
-
-                   
-                    
-                       
-                        knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";
-                        console.log("to jest faktyczy kat indykatora :    " + this.angleValue)
-                    
-
-                
-                // knob.style.transform =  "rotate(" + ((this.angleValue - this.angleStartValue)+ this.angle ) + "deg)";                   
-                
-                
-                         
+                this.indicatorAngle = (this.angleValue - this.angleStartValue)                    
+                knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";                        
                 } 
             });
         });
@@ -128,18 +113,24 @@ export class PanelController
     {           
             this.buttonWrapper.forEach(knob =>{
                 knob.addEventListener("mouseup", (e) => {                         
-                if(!this.isLeftPressed && knob.classList.contains("power-knob") && this.isAngleValueReadable == true){           
-                this.lastNotedAngleValue = this.angleValue;
-                // console.log("to jest ostatni zapisany kat : " + this.lastNotedAngleValue)
-                this.isAngleValueReadable = false;
-                this.knobMousePressed = false;
-                this.angle += this.indicatorAngle;
-                console.log(" to jest wartosc kato zbiorczego " + this.angle)
+                if(!this.isLeftPressed && knob.classList.contains("power-knob") && this.isAngleValueReadable == true &&  this.knobMousePressed == true){                    
+                    let x = e.clientX - this.objectGeomProperties.centerX;
+                    let y = e.clientY - this.objectGeomProperties.centerY;
+                    const angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;               
+                   this.knobMousePressed = false;                
+                   this.isAngleValueReadable = false;  
+
+                if(this.angleValue == angleValue)
+                {
+                    this.angle += this.indicatorAngle;
+                }
+
                 } 
             });
         });
     };
-      getOutLineGeomProperties(knob)
+
+    getOutLineGeomProperties(knob)
     {
         
         this.objectGeomProperties.knobOutline = knob.getBoundingClientRect();        
