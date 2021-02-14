@@ -18,6 +18,7 @@ export class PanelController
     rotation = 0;
     angle = 0;
     lastNotedAngleValue = 0;
+    indicatorAngle = 0;
 
     objectGeomProperties = {
 
@@ -28,26 +29,21 @@ export class PanelController
         outlineHeight: undefined, 
         centerX: undefined,
         centerY: undefined
-    }
-
-
-       
+    };      
 
 
     constructor()
     {
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.querySelector("#heat-label");
-        this.loadFunctionality = this.loadPanelController();
-    }
+        this.loadFunctionality = this.loadPanelController();        
+    };
 
     knobsActve()    {       
        
             this.buttonWrapper.forEach(knob => {
             knob.addEventListener("dblclick", (e) =>
-            {  if(this.knobMousePressed === true){
-                e.preventDefault();
-            }
+            {  
                this.pressKnobs(knob);
             })            
         });            
@@ -57,8 +53,7 @@ export class PanelController
     {
         if (knob.classList.contains("power-knob") && this.isLeftPressed) {
              
-            this.isLeftPressed = false;
-            this.rotateKnob(knob);  
+            this.isLeftPressed = false;            
             knob.classList.add("unpressed");
                
         } else 
@@ -71,87 +66,79 @@ export class PanelController
 
         if (knob.classList.contains("power-knob") && !this.isLeftPressed) {
             knob.classList.remove("unpressed");
-            this.isLeftPressed = true;
-            console.log("lewy przycisl jest wcisnie ty : " + this.isLeftPressed)                 
+            this.isLeftPressed = true;                            
         } else
 
         if (knob.classList.contains("heat-knob") && !this.isRightPressed) {
             knob.classList.remove("unpressed");
             this.isRightPressed = true;         
         }  
-    };
-
+    };    
   
 
-  
-
-    setMouseDown(knob)
-    {       
-        
-            if(!this.isAngleValueReadable && this.isLeftPressed === false && !this.knobMousePressed){
-            knob.addEventListener("mousedown", (e) => {
-                 e.preventDefault();  
-            let x = e.clientX - this.objectGeomProperties.centerX;
-            let y = e.clientY - this.objectGeomProperties.centerY;
-            this.angleStartValue = (this.radianToDeg * Math.atan2(y, x)) +180;
-            console.log("poczatkowy kat po nacisnieu przycsku :" + this.angleStartValue)
-            this.isAngleValueReadable = true;
-            this.knobMousePressed = true;
-             }, false);
-        };              
-    };
-
-    setMouseMove(knob)
-    {       
-            knob.addEventListener("mousemove",(e) => { 
-                
-                if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable == true){ 
-                  e.preventDefault();               
-            let x = e.clientX - this.objectGeomProperties.centerX;
-            let y = e.clientY - this.objectGeomProperties.centerY;
-            this.angleValue = (this.radianToDeg * Math.atan2(y, x)) +180;
-            console.log(this.angleValue)
-            
-            
-            // this.rotation = this.angleValue - this.angleStartValue;
-            knob.style.transform =  "rotate(" + ((this.angleValue - this.angleStartValue)+ this.angle ) + "deg)";
-            // console.log("to jest wywolane z metody mousse move " + this.angleValue)                
-            };
-        }, false);                   
-    };   
-
-    setMouseUp(knob)
+    setMouseDown()
     {           
-            knob.addEventListener("mouseup", (e) => {
-               
-                if(!this.isLeftPressed){
-             e.preventDefault();
+        this.buttonWrapper.forEach(knob =>{
+        knob.addEventListener("mousedown", (e) => {
             
-            this.lastNotedAngleValue += this.angleValue;
-            console.log(" to jet wartosc konta zapisana po podniesieniu myszki" + this.lastNotedAngleValue) 
-            this.isAngleValueReadable = false;
-            this.knobMousePressed = false;
-            this.angle += (this.angleValue - this.angleStartValue)   }      
+            if(!this.isAngleValueReadable && !this.isLeftPressed && !this.knobMousePressed && knob.classList.contains("power-knob"))
+            {                
+                this.getOutLineGeomProperties(knob);
+                let x = e.clientX - this.objectGeomProperties.centerX;
+                let y = e.clientY - this.objectGeomProperties.centerY;
+                this.angleStartValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
+                console.log("poczatkowy kat po nacisnieu przycsku :" + this.angleStartValue)
+                this.isAngleValueReadable = true;
+                this.knobMousePressed = true;                
+            }
             });
-          
-    }; 
+        });                 
+    };
 
-      rotateKnob(knob)
-    {   
-        this.getOutLineGeomProperties(knob);
-        this.setMouseDown(knob);      
-        this.setMouseMove(knob);        
-        this.setMouseUp(knob);       
-    }
+    setMouseMove()
+    {       
+        this.buttonWrapper.forEach(knob =>{
+        knob.addEventListener("mousemove", (e) => {                           
+                
+            if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable == true && knob.classList.contains("power-knob"))
+            {
+                let x = e.clientX - this.objectGeomProperties.centerX;
+                let y = e.clientY - this.objectGeomProperties.centerY;
+                this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
+                this.indicatorAngle = (this.angleValue - this.angleStartValue)
 
-    
+                   
+                    
+                       
+                        knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";
+                        console.log("to jest faktyczy kat indykatora :    " + this.angleValue)
+                    
 
-    
+                
+                // knob.style.transform =  "rotate(" + ((this.angleValue - this.angleStartValue)+ this.angle ) + "deg)";                   
+                
+                
+                         
+                } 
+            });
+        });
+    };
 
-
-
-
-
+    setMouseUp()
+    {           
+            this.buttonWrapper.forEach(knob =>{
+                knob.addEventListener("mouseup", (e) => {                         
+                if(!this.isLeftPressed && knob.classList.contains("power-knob") && this.isAngleValueReadable == true){           
+                this.lastNotedAngleValue = this.angleValue;
+                // console.log("to jest ostatni zapisany kat : " + this.lastNotedAngleValue)
+                this.isAngleValueReadable = false;
+                this.knobMousePressed = false;
+                this.angle += this.indicatorAngle;
+                console.log(" to jest wartosc kato zbiorczego " + this.angle)
+                } 
+            });
+        });
+    };
       getOutLineGeomProperties(knob)
     {
         
@@ -162,7 +149,7 @@ export class PanelController
         this.objectGeomProperties.outlineHeight = this.objectGeomProperties.knobOutline.height;
         this.objectGeomProperties.centerX = this.objectGeomProperties.outlinePositionX + (this.objectGeomProperties.outlineWidth / 2);
         this.objectGeomProperties.centerY = this.objectGeomProperties.outlinePositionY + (this.objectGeomProperties.outlineHeight / 2);        
-    }
+    };
 
     generateHeatDots()    
     {
@@ -182,7 +169,8 @@ export class PanelController
     {
         this.generateHeatDots();
         this.knobsActve();
-
-
-    }
+        this.setMouseDown();
+        this.setMouseMove()
+        this.setMouseUp();
+   };
 };
