@@ -256,9 +256,89 @@ body{
     repeating-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1.2%, rgba(255, 255, 255, 0.15) 2.2%), linear-gradient(180deg, rgb(199, 199, 199) 0%, rgb(199, 199, 199) 47%, rgb(199, 199, 199) 53%, rgb(179, 179, 179) 100%);  
 }
 
-#handle
+#door-handle
 {
     height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.bracket
+{
+    width: 100px;
+    height: 40px;
+    background-color: yellow;
+    position: relative;transform-origin: center;
+      
+}
+
+.bracket-wall
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.brc-top
+{
+    transform: translateY(-50%) translateZ(20px) rotateX(-90deg);
+    border-bottom: 40px solid chartreuse;    
+    border-left: 50px solid transparent;
+}
+
+.brc-bottom
+{
+    transform: translateY(50%) translateZ(20px) rotateX(-90deg) ;
+    border-bottom: 40px solid chartreuse;    
+    border-left: 50px solid transparent;
+}
+
+.brc-left
+{
+    transform: translateX(0%) rotateY(-45deg) ;
+    transform-origin: left;
+    background-color: black;
+}
+
+
+
+
+
+
+
+
+.brc-top-right
+{
+    transform: translateY(-50%) translateZ(20px) rotateX(-90deg);
+    border-bottom: 40px solid chartreuse;    
+    border-right: 50px solid transparent;
+}
+
+.brc-bottom-right
+{
+    transform: translateY(50%) translateZ(20px) rotateX(-90deg) ;
+    border-bottom: 40px solid chartreuse;    
+    border-right: 50px solid transparent;
+}
+
+
+
+
+
+
+
+
+
+
+
+.handle
+{
+    width: 50%;
+    height: 50%;
+    background-color: black;
 }
 
 #window
@@ -271,12 +351,12 @@ body{
     height: 20%;
 }
 
-.top-cooker-door
+/* .top-cooker-door
 {
     height: 50px;
     transform: translateY(-50%) translateZ(-25px) rotateX(90deg);
     background-color: yellow;
-}
+} */
 
 
 
