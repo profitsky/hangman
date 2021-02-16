@@ -12,6 +12,7 @@ body{
     margin: 0 auto;
     background-color: #1b1b1b;    
     font-family: 'Roboto', sans-serif;
+  
 }
 
 .game-container
@@ -107,10 +108,11 @@ body{
 /*  MIDDLE SECTION */
 
 .middle-section.wrapper{
+    perspective: 3500px;
     flex-grow: 8;
     background-color: #1b1b1b;
-    width: 100%;
-    height: 100%;
+    width: 710px;
+    height: 100%;    
     position: relative;
     background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15));            
 }
@@ -206,25 +208,82 @@ body{
 .oven-front
 {
     background: repeating-linear-gradient(white, black 15px, white 30px);
-    transform: translateY(30%) rotateX(89deg);
+    transform: translateY(30%) rotateX(90deg);
 }
 
-#cooker-door
+.cooker-door-cover
 {
-    background-color: rgba(255, 255, 255, 0.6);
-    width: 100%;
-    height: 100%;
     position: absolute;
-    z-index: 1;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;   
+    transform-style: preserve-3d;
+    top: 0;
+    left: 0;    
+    width: 100%;
+    height: 100%;    
+    animation-name: rotate-door;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    transform-origin: bottom;    
+    z-index: 2;
 }
 
 .cooker-door
 {
-    border: 2px yellow solid;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;    
+    border: 2px black solid;
+
 }
+
+.front-cooker-door
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.cooker-door-element
+{
+    border: 2px solid black;
+    width: 100%;
+}
+
+.flat-metal
+{
+     background-image: repeating-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 6%, rgba(255, 255, 255, 0.1) 7.5%),
+    repeating-linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 4%, rgba(0, 0, 0, 0.03) 4.5%),
+    repeating-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1.2%, rgba(255, 255, 255, 0.15) 2.2%), linear-gradient(180deg, rgb(199, 199, 199) 0%, rgb(199, 199, 199) 47%, rgb(199, 199, 199) 53%, rgb(179, 179, 179) 100%);  
+}
+
+#handle
+{
+    height: 15%;
+}
+
+#window
+{
+    flex-grow: 8;
+}
+
+#bottom-cover
+{
+    height: 20%;
+}
+
+.top-cooker-door
+{
+    height: 50px;
+    transform: translateY(-50%) translateZ(-25px) rotateX(90deg);
+    background-color: yellow;
+}
+
+
+
+
+
+
+
 
 /*  BOTTOM SECTION */
 
@@ -246,7 +305,7 @@ body{
     align-items: center;    
 }
 
-.bttm-section.middle-section
+.bttm-section
 {
     flex-grow: 8;   
 }
@@ -602,5 +661,16 @@ body{
 
     100%{
         transform: rotate3d(1,1,0,180deg);
+    }
+}
+
+@keyframes rotate-door
+{
+    0%{
+        transform: rotate3d(0,0,0,0deg);
+    }
+
+    100%{
+        transform: rotate3d(-1,0,0,80deg);
     }
 }
