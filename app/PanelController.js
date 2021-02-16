@@ -33,7 +33,8 @@ export class PanelController
     {
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.querySelector("#heat-label");
-        this.loadFunctionality = this.loadPanelController();        
+        this.loadFunctionality = this.loadPanelController();
+        this.shadowWrapper = document.querySelector(".knob-shadow");       
     };
 
     knobsActve()    {       
@@ -52,6 +53,7 @@ export class PanelController
              
             this.isLeftPressed = false;            
             knob.classList.add("unpressed");
+            this.shadowWrapper.classList.add("unpressed")
                
         } else 
         
@@ -63,6 +65,7 @@ export class PanelController
 
         if (knob.classList.contains("power-knob") && !this.isLeftPressed) {
             knob.classList.remove("unpressed");
+            this.shadowWrapper.classList.remove("unpressed");
             this.isLeftPressed = true;                            
         } else
 

@@ -51,7 +51,7 @@ body{
 .top-section.wrapper
 {
     position: relative;
-    height: 100px;
+    height: 150px;
 }
 
 .output{
@@ -109,48 +109,128 @@ body{
 .middle-section.wrapper{
     flex-grow: 8;
     background-color: #1b1b1b;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15));            
 }
 
-#door
+.front-frame
 {
-    background-color: black;
-    height: 100%;
+    top: 20px;
+    left: 20px;
+    bottom: 60px;
+    right: 20px;
+    position: absolute;
+    border-radius: 30px;
+    background-color: rgb(26, 25, 25);
+    box-shadow: 0 0 5px 8px rgba(12, 12, 12, 0.6);
+    overflow: hidden;
+}
+
+.frame-wall
+{
     width: 100%;
+    height: 100%;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15));    
+}
+
+.rubber-seal
+{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+    border-radius: 30px;    
+    border-top: solid black 10px;
+    border-right: solid black 10px;
+    border-bottom: solid black 10px;
+    border-left: solid black 10px;
+    box-shadow: 0 0 2px 5px rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: start;
-    align-items: flex-start;
-    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;   
+}
+
+.internal-box
+{    
+    transform-style: preserve-3d;    
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    transform-origin: top;
+}
+
+.oven-wall
+{   
+    top: 0;
+    left: 0;        
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    transform-origin: center;
+}
+
+.oven-back
+{
+    background-image: linear-gradient( rgb(0, 0, 0), rgb(0, 0, 0)); 
+    transform: translateZ(-226px);        
+}
+
+.oven-top
+{
+    background-image: linear-gradient( rgb(0, 0, 0), rgb(0, 0, 0)); 
+    transform: translateY(-50%) rotateX(90deg);          
+}
+
+.oven-right
+{
+    background-image: linear-gradient( rgb(0, 0, 0), rgb(0, 0, 0)); 
+    transform: translateX(50%) rotateY(90deg);             
+}
+
+.oven-left
+{
+    background-image: linear-gradient( rgb(0, 0, 0), rgb(0, 0, 0)); 
+    transform: translateX(-50%) rotateY(90deg);             
+}
+
+.oven-bottom
+{
+    background-image: linear-gradient( rgb(0, 0, 0), rgb(0, 0, 0)); 
+    transform: translateY(50%) rotateX(90deg);            
+}
+
+.oven-front
+{
+    background: repeating-linear-gradient(white, black 15px, white 30px);
+    transform: translateY(30%) rotateX(89deg);
+}
+
+#cooker-door
+{
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+    border-radius: 10px;
+    display: flex;
     flex-direction: column;   
 }
 
 .cooker-door
 {
-    background-color: chartreuse;
-    width: 100px;
-    height: 100px;
-}
-
-#handle
-{
-    margin: 20px;
-}
-
-#window
-{
-    flex-grow: 4;
-    
-}
-
-#bottom-cover
-{
-    width: 100%;
+    border: 2px yellow solid;
 }
 
 /*  BOTTOM SECTION */
 
 .bottom-setcion.wrapper
 {
-    height: 150px;
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;    
@@ -187,11 +267,7 @@ body{
 }
 
 .knob
-{
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
+{    
     height: 80px;
     width: 80px;
     border-radius: 50%;   
@@ -208,10 +284,39 @@ body{
     repeating-conic-gradient(from 0deg, transparent 0deg 30deg,  rgba(255, 255, 255, 0.3) 30deg 60deg, rgba(252, 247, 247, 0.3) 60deg 90deg);
     transition: box-shadow 0.5s;
     cursor: pointer;
-    transform: rotate(0deg);
-    
+    transform: rotate(0deg);    
+}
+
+.knob-shadow
+{
+    position: absolute;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;   
+    box-shadow: 0px 0px 0px 0px rgba(23, 23, 23, 0.9),
+                0 0 10px 1px rgba(15, 15, 15, 0.9),
+                0 0 2px 3px rgb(15, 15, 15),                
+                inset rgba(38, 38, 38, 0.8) 0 -1px 5px 2px,
+                inset rgba(0, 0, 0, 0) 0 0 0px 0,
+                inset rgba(255, 255, 255, 0.7) 0  2px 1px 3px, 
+                rgba(0, 0, 0, 0.15) 0 -2px 2px 2px,
+                rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
+
     
 }
+
+/* .knob-shadow.unpressed
+{
+    box-shadow: 0px 20px 10px 0px rgba(23, 23, 23, 0.9),
+                0 0 10px 8px rgba(15, 15, 15, 0.9),
+                0 0 2px 3px rgb(15, 15, 15),                
+                inset rgba(38, 38, 38, 0.8) 0 -1px 2px 2px,
+                inset rgba(0, 0, 0, 0.25) 0 -1px 0px 3px,
+                inset rgba(255, 255, 255, 0.7) 0  2px 1px 3px, 
+                rgba(0, 0, 0, 0.15) 0 -2px 2px 2px,
+                rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
+    transition: box-shadow 0.7s;   
+} */
 
 .knob.unpressed
 {
@@ -499,4 +604,3 @@ body{
         transform: rotate3d(1,1,0,180deg);
     }
 }
-

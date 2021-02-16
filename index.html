@@ -14,6 +14,7 @@
 
 <body>
     <div class="game-container">
+
         <section id="display" class="top-section wrapper">
             <div class="output">
                 <div id="led-display">
@@ -49,37 +50,48 @@
             </div>
         </section>
         <section id="cooker" class="middle-section wrapper">
-            <div id="door">
-                <div id="handle" class="liner-metal cooker-door"></div>
+            <div id="cooker-door">
+                <div id="handle" class="cooker-door"></div>
                 <div id="window" class="cooker-door"></div>
-                <div id="bottom-cover" class="liner-metal cooker-door"></div>
+                <div id="bottom-cover" class="cooker-door"></div>
+            </div>
+            <div class="front-frame">
+                <div class="frame-wall">
+                    <div class="rubber-seal">
+                        <div class="internal-box">
+                            <div class="oven-front oven-wall"></div>
+                            <div class="oven-back oven-wall"></div>
+                            <div class="oven-top oven-wall"></div>
+                            <div class="oven-bottom oven-wall"></div>
+                            <div class="oven-left oven-wall"></div>
+                            <div class="oven-right oven-wall"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <section id="control-panel" class="bottom-setcion wrapper">
             <div class="knob-section bttm-section">
+                <div class="knob-shadow"></div>
                 <div class="knob-label">
                     <span id="off-label">off</span>
                     <span id="on-label">on</span>
                 </div>
-                <div class="knob power-knob">
+                <div class="knob power-knob .box-shadow">
                     <div class="knob-indicator"></div>
                 </div>
             </div>
-
             <div class="middle-section bttm-section">
                 <div id="display-bttm" class="output"></div>
             </div>
-
             <div class="knob-section bttm-section">
                 <div id="heat-label"></div>
                 <div class="knob heat-knob">
                     <div class="knob-indicator"></div>
                 </div>
             </div>
-
             <div id="input" class="input-keys"></div>
         </section>
-
     </div>
     <script src="./app/Application.js" type="module"></script>
 </body>
