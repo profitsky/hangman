@@ -269,8 +269,7 @@ body{
     width: 100px;
     height: 40px;
     background-color: yellow;
-    position: relative;transform-origin: center;
-      
+    position: relative;     
 }
 
 .bracket-wall
@@ -280,19 +279,20 @@ body{
     left: 0;
     height: 100%;
     width: 100%;
+    transform-origin: bottom;   
 }
 
 .brc-top
 {
-    transform: translateY(-50%) translateZ(20px) rotateX(-90deg);
-    border-bottom: 40px solid chartreuse;    
-    border-left: 50px solid transparent;
+    transform: translateY(-100%) rotateX(-90deg);   
+    border-bottom: 50px solid chartreuse;    
+    border-left: 50px solid transparent;    
 }
 
 .brc-bottom
 {
-    transform: translateY(50%) translateZ(20px) rotateX(-90deg) ;
-    border-bottom: 40px solid chartreuse;    
+    transform: translateY(-10px) rotateX(-90deg) ;
+    border-bottom: 50px solid chartreuse;    
     border-left: 50px solid transparent;
 }
 
@@ -300,50 +300,102 @@ body{
 {
     transform: translateX(0%) rotateY(-45deg) ;
     transform-origin: left;
-    background-color: black;
+    background-color: chartreuse;
+    width: 70%;
 }
 
+.brc-right
+{
+    background-color: chartreuse;
+    transform: translateX(74px) translateZ(25px) rotateY(270deg);    
+    width: 50px;
+}
 
-
-
-
-
+.brc-front
+{
+    background-color: chartreuse;
+    transform: translateZ(50px) translateX(50px);
+    width: 50px;    
+}
 
 
 .brc-top-right
 {
-    transform: translateY(-50%) translateZ(20px) rotateX(-90deg);
-    border-bottom: 40px solid chartreuse;    
-    border-right: 50px solid transparent;
+    transform: translateY(-100%) rotateX(-90deg);   
+    border-bottom: 50px solid chartreuse;    
+    border-right: 50px solid transparent;  
 }
 
 .brc-bottom-right
 {
-    transform: translateY(50%) translateZ(20px) rotateX(-90deg) ;
-    border-bottom: 40px solid chartreuse;    
+    transform: translateY(-10px) rotateX(-90deg) ;
+    border-bottom: 50px solid chartreuse;    
     border-right: 50px solid transparent;
 }
 
+.brc-right-right
+{
+    transform: translateZ(50px) translateX(50px) rotateY(45deg) ;
+    transform-origin: left;
+    background-color: chartreuse;
+    width: 70%;
+}
 
+.brc-left-right
+{
+    background-color: chartreuse;
+    transform: translateX(-26px) translateZ(25px) rotateY(270deg);    
+    width: 50px;
+}
 
+.brc-front-right
+{
+     background-color: chartreuse;
+    transform: translateZ(50px) ;
+    width: 50px; 
+}
 
+.handle-wall
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: bottom;
+    background-color: black; 
+}
 
+.handle-top
+{
+    transform: rotateX(90deg) translateY(40px);
+}
 
+.handle-bottom
+{
+    transform: rotateX(90deg) translateY(40px) translateZ(20px);
+}
 
-
-
-
+.handle-back
+{
+    transform: translateZ(40px);
+}
 
 .handle
 {
     width: 50%;
-    height: 50%;
-    background-color: black;
+    height: 25%;
+    position: relative;    
 }
 
 #window
 {
     flex-grow: 8;
+    position: relative;
+    border-top: 30px solid;
+    border-bottom: 30px solid;
+    border-left: 70px solid;
+    border-right: 70px solid;
 }
 
 #bottom-cover
@@ -351,18 +403,61 @@ body{
     height: 20%;
 }
 
-/* .top-cooker-door
+.top-cooker-door
 {
     height: 50px;
     transform: translateY(-50%) translateZ(-25px) rotateX(90deg);
     background-color: yellow;
-} */
+}
 
+.window-frame
+{    
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: -10px;
+    right: -10px;
+    transform-origin: center;
+    background-color: rgba(0, 0, 0, 0.8);  
 
+}
 
+.stiffener
+{
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   background-color: chartreuse;
+}
 
+.window-left
+{
+    transform: rotateY(90deg) translateX(25px);
+    width: 50px;
+    left: -4%;
+    
+}
 
+.window-right
+{
+    transform: rotateY(90deg) translateX(25px);
+    width: 50px;
+    right: -4%;
+}
 
+.window-top
+{
+    transform: rotateX(90deg) translateY(-25px);
+    top: -6%;
+    height: 50px;
+}
+
+.window-bottom
+{
+    transform: rotateX(90deg) translateY(-25px);
+    bottom: -6%;
+    height: 50px;
+}
 
 
 /*  BOTTOM SECTION */
