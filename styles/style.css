@@ -9,11 +9,12 @@ body{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    margin: 0 auto;
-    background-color: #1b1b1b;    
+    margin: 0 auto;     
     font-family: 'Roboto', sans-serif;
-  
+    background-image: linear-gradient(90deg, rgb(43, 42, 42) 0%, #1b1b1b 25%, #1b1b1b 50%, #1b1b1b 75%, rgb(43, 42, 42) 100%);  
 }
+
+
 
 .game-container
 {
@@ -47,7 +48,162 @@ body{
     repeating-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1.2%, rgba(255, 255, 255, 0.15) 2.2%), linear-gradient(180deg, rgb(199, 199, 199) 0%, rgb(230, 230, 230) 47%, rgb(199, 199, 199) 53%, rgb(179, 179, 179) 100%);    
 }
 
-/*  TOP SECTION */
+.slider.opened
+{
+    position: absolute;    
+    background-color: rgba(12, 12, 12, 0.8);    
+    height: 100vh;
+    z-index: 1;
+}
+
+#left-slider
+{
+    top: 0;
+    left: 0;
+    width:30%;
+}
+
+#right-slider
+{
+    top: 0;
+    right: 0;
+    width:20%;
+}
+
+.trigger
+{
+    position: absolute;
+    height: 150px;
+    width: 50px;
+    background-color: rgba(92, 90, 90, 0.5);   
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    text-align: center;
+    display: block;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1em;
+    font-weight: bold;
+    color: yellow;
+    cursor: pointer;
+}
+
+#trigger-left
+{
+    left: 100%;    
+    padding-right: 20px;
+    border-bottom-right-radius: 50%;
+    border-top-right-radius: 50%;
+}
+
+#trigger-right
+{
+    right: 100%;    
+    padding-right: 10px;
+    border-bottom-left-radius: 50%;
+    border-top-left-radius: 50%;
+}
+
+.bowl
+{   
+    position: absolute;    
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 220px;
+    height: 220px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border: solid 4px #fff;
+    transform-origin: bottom center;
+}
+
+.bowl::before
+{
+    content: " ";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 25px;
+    background-color: rgba(66, 66, 66, 1);
+    border-radius: 50%;
+    border: solid 4px #fff;
+}
+
+.bowl::after
+{
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.water
+{
+    position: absolute;
+    top: 50%;
+    left: 3px;
+    right: 3px;
+    bottom: 3px;
+    background-color: rgb(94, 102, 146);
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    transform-origin: bottom center;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.water::before
+{
+    content: "";
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    border-radius: 50%;
+    background-color: rgb(58, 71, 145);
+    
+}
+
+.fish
+{
+    background-image: url("/assets/images/gold-fish.png");    
+    width: 80px;
+    height: 80px;
+    background-size: 80px;
+    background-repeat: no-repeat;  
+    animation: swimming-fish 5s linear infinite;
+    
+}
+
+.bowl-shadow
+{
+    position: absolute;
+    top: calc(50% + 100px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    border-radius: 50%;
+}
+
+
+
+
+
+
 
 .top-section.wrapper
 {
@@ -219,7 +375,7 @@ body{
     left: 0;    
     width: 100%;
     height: 100%;    
-    animation-name: rotate-door;
+    /* animation-name: rotate-door; */
     animation-duration: 5s;
     animation-fill-mode: forwards;
     transform-origin: bottom;    
@@ -467,7 +623,7 @@ body{
     height: 200px;
     display: flex;
     align-items: center;
-    justify-content: center;    
+    justify-content: space-between;    
 }
 
 .bttm-section
@@ -477,13 +633,15 @@ body{
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;   
 }
 
-.bttm-section
+.mid-section
 {
-    flex-grow: 8;   
+    flex-grow: 8;
 }
+
+
 
 
 #display-bttm.output
@@ -848,4 +1006,45 @@ body{
     100%{
         transform: rotate3d(-1,0,0,80deg);
     }
+}
+
+@keyframes swimming-fish
+{
+    0%
+    {
+        transform: translate(0, 0) rotateY(0deg);
+    }
+      
+
+    24%
+    {
+        transform: translate(-55px, 0) rotateY(0deg);
+    }
+
+    25%
+    {
+        transform: translate(-55px, 0) rotateY(180deg);
+    }
+
+    75%
+    {
+        transform: translate(55px, 0) rotateY(180deg);
+    }
+
+    76%
+    {
+        transform: translate(55px, 0) rotateY(0deg);
+    }
+
+    100%
+    {
+        transform: translate(0, 0) rotateY(0deg);
+    }
+
+    
+
+    
+   
+
+    
 }

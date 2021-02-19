@@ -13,7 +13,28 @@
 </head>
 
 <body>
+
+
+    <section id="left-slider" class="slider">
+        <div id="fish-bowl">
+            <div class="bowl">
+                <div class="water">
+                    <div class="fish"></div>
+                </div>
+            </div>
+            <div class="bowl-shadow"></div>
+        </div>
+        <div id="trigger-left" class="trigger">close</div>
+    </section>
+
+    <section id="right-slider" class="slider">
+        <div id="trigger-right" class="trigger">close</div>
+        <div id="input" class="input-keys"></div>
+    </section>
     <div class="game-container">
+
+
+
         <section id="display" class="top-section wrapper">
             <div class="output">
                 <div id="led-display">
@@ -102,7 +123,7 @@
         </section>
         <section id="control-panel" class="bottom-setcion wrapper">
             <div class="knob-section bttm-section">
-                <div class="knob-shadow"></div>
+                <!-- <div class="knob-shadow"></div> -->
                 <div class="knob-label">
                     <span id="off-label">off</span>
                     <span id="on-label">on</span>
@@ -111,7 +132,7 @@
                     <div class="knob-indicator"></div>
                 </div>
             </div>
-            <div class="middle-section bttm-section">
+            <div class="mid-section bttm-section">
                 <div id="display-bttm" class="output"></div>
             </div>
             <div class="knob-section bttm-section">
@@ -120,7 +141,6 @@
                     <div class="knob-indicator"></div>
                 </div>
             </div>
-            <div id="input" class="input-keys"></div>
         </section>
     </div>
     <script src="./app/Application.js" type="module"></script>
