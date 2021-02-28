@@ -1,3 +1,8 @@
+@font-face{
+ font-family:"digital-clock-font";
+ src: url("/assets/fonts/digital-7.ttf");
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -657,6 +662,76 @@ body{
                 0 0 3px 10px #131212,
                 0 40px 20px 10px rgba(0, 0, 0, 0.5);    
 }
+
+#display-bttm
+{
+    padding: 0;
+    display: flex;    
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.disp-sufler
+{        
+    font-family:"digital-clock-font";
+    color: rgba(126, 115, 115, 0.1);
+    /* text-shadow: 0 0 15px #00a1ff,
+                 0 0 30px #00a1ff; */
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+#message-output
+{
+    flex-grow: 8;
+    font-size: 2em;
+}
+
+#info-output
+{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-items: stretch;
+    justify-content: center;    
+}
+
+.disp-info
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: 50%;
+    font-size: 1.5em;
+}
+
+#clock
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 2px;
+}
+.timer-element
+{
+    text-align: center;
+}
+#dot-separator
+{
+    width: 5px;
+}
+
+.hide-dot
+{
+    color: rgba(0, 0, 0, 0);
+}
+
+
+
+
+
+
+
 
 .knob
 {    

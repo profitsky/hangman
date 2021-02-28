@@ -1,9 +1,11 @@
+import { Sufler} from "./Sufler.js"; 
+
 export class PanelController
 {
     
     dotsNumber = 12;
     heatRange = 180;
-    radius = 60;
+    radius = 55;
     dotPositionX;
     dotPositionY;
     isLeftPressed = true;
@@ -15,6 +17,7 @@ export class PanelController
     angleValue =0; 
     angle = 0; 
     indicatorAngle = 0;
+    transformedAngle; 
    
 
     objectGeomProperties = {
@@ -26,19 +29,22 @@ export class PanelController
         outlineHeight: undefined, 
         centerX: undefined,
         centerY: undefined
-    };      
-
+    };
 
     constructor()
-    {
+    {       
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.querySelector("#heat-label");
         this.loadFunctionality = this.loadPanelController();
-        this.shadowWrapper = document.querySelector(".knob-shadow");       
+        this.shadowWrapper = document.querySelector(".knob-shadow");
+        this.sufler = new Sufler();
+        this.sufler.timeStarter();     
+        this.sufler.typeMessage(this.sufler.messagesForUser.welcome);
+                   
     };
 
-    knobsActve()    {       
-       
+    knobsActve()
+    {     
             this.buttonWrapper.forEach(knob => {
             knob.addEventListener("dblclick", (e) =>
             {  
@@ -50,31 +56,26 @@ export class PanelController
     pressKnobs(knob)
     {
         if (knob.classList.contains("power-knob") && this.isLeftPressed) {
-             
+
             this.isLeftPressed = false;            
             knob.classList.add("unpressed");
-            this.shadowWrapper.classList.add("unpressed")
-               
-        } else 
-        
-        if (knob.classList.contains("heat-knob") && this.isRightPressed) {
+            // this.shadowWrapper.classList.add("unpressed")                           
+        } 
+        else if (knob.classList.contains("heat-knob") && this.isRightPressed) {
+
             knob.classList.add("unpressed");
-            this.isRightPressed = false; 
+            this.isRightPressed = false;
+        } else if (knob.classList.contains("power-knob") && !this.isLeftPressed) {
 
-        } else
-
-        if (knob.classList.contains("power-knob") && !this.isLeftPressed) {
             knob.classList.remove("unpressed");
-            this.shadowWrapper.classList.remove("unpressed");
+            // this.shadowWrapper.classList.remove("unpressed");
             this.isLeftPressed = true;                            
-        } else
+        } else if (knob.classList.contains("heat-knob") && !this.isRightPressed) {
 
-        if (knob.classList.contains("heat-knob") && !this.isRightPressed) {
             knob.classList.remove("unpressed");
             this.isRightPressed = true;         
         }  
-    };    
-  
+    };  
 
     setMouseDown()
     {           
@@ -86,8 +87,7 @@ export class PanelController
                 this.getOutLineGeomProperties(knob);
                 let x = e.clientX - this.objectGeomProperties.centerX;
                 let y = e.clientY - this.objectGeomProperties.centerY;
-                this.angleStartValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
-                console.log("poczatkowy kat po nacisnieu przycsku :" + this.angleStartValue)
+                this.angleStartValue = (this.radianToDeg * Math.atan2(y, x)) + 180;                
                 this.isAngleValueReadable = true;
                 this.knobMousePressed = true;                
             }
@@ -101,13 +101,15 @@ export class PanelController
         knob.addEventListener("mousemove", (e) => {                           
                 
             if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable === true && knob.classList.contains("power-knob"))
-            {
-                let x = e.clientX - this.objectGeomProperties.centerX;
-                let y = e.clientY - this.objectGeomProperties.centerY;
-                this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
-                this.indicatorAngle = (this.angleValue - this.angleStartValue)                    
-                knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";                        
-                } 
+                {
+                    let x = e.clientX - this.objectGeomProperties.centerX;
+                    let y = e.clientY - this.objectGeomProperties.centerY;
+                    this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
+                    this.indicatorAngle = (this.angleValue - this.angleStartValue)                    
+                    knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";
+                    this.getKnobAngleValue(knob);             
+                                                           
+                }; 
             });
         });
     };
@@ -121,21 +123,19 @@ export class PanelController
                     let y = e.clientY - this.objectGeomProperties.centerY;
                     const angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;               
                    this.knobMousePressed = false;                
-                   this.isAngleValueReadable = false;  
+                   this.isAngleValueReadable = false;               
 
                 if(this.angleValue == angleValue)
                 {
-                    this.angle += this.indicatorAngle;
+                    this.angle += this.indicatorAngle;                    
                 }
-
-                } 
+                }; 
             });
         });
     };
 
     getOutLineGeomProperties(knob)
-    {
-        
+    {        
         this.objectGeomProperties.knobOutline = knob.getBoundingClientRect();        
         this.objectGeomProperties.outlinePositionX = this.objectGeomProperties.knobOutline.left;
         this.objectGeomProperties.outlinePositionY = this.objectGeomProperties.knobOutline.top;
@@ -143,7 +143,7 @@ export class PanelController
         this.objectGeomProperties.outlineHeight = this.objectGeomProperties.knobOutline.height;
         this.objectGeomProperties.centerX = this.objectGeomProperties.outlinePositionX + (this.objectGeomProperties.outlineWidth / 2);
         this.objectGeomProperties.centerY = this.objectGeomProperties.outlinePositionY + (this.objectGeomProperties.outlineHeight / 2);        
-    };
+    };    
 
     generateHeatDots()    
     {
@@ -159,12 +159,30 @@ export class PanelController
         };      
     };
 
-    loadPanelController()
+    getKnobAngleValue(knob)
     {
-        this.generateHeatDots();
+        const st = window.getComputedStyle(knob, null);
+        const tr = st.getPropertyValue("transform") || "fail...";
+        let values = tr.split('(')[1];
+            values = values.split(')')[0];
+            values = values.split(',');            
+        let a = values[0];
+        let b = values[1];
+        
+        let scale = Math.sqrt(a*a + b*b);        
+        let sin = b/scale;
+        let angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+        return angle;
+      
+    };
+
+    loadPanelController()
+    {        
+        this.generateHeatDots();        
         this.knobsActve();
         this.setMouseDown();
         this.setMouseMove()
         this.setMouseUp();
+        
    };
 };

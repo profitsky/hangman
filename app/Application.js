@@ -1,6 +1,6 @@
  import { Movies} from "./Movies.js";
  import { Light} from "./LightController.js";
- import { PanelController} from "./PanelController.js";
+ import { PanelController} from "./PanelController.js";  
 
  class Application{
 
@@ -11,7 +11,7 @@
         this.outputWrapper = outputWrapper;
         this.ledDisplayWrapper = ledDisplayWrapper;        
         this.controlPanel = new PanelController();
-        this.movie = new Movies();        
+        this.movie = new Movies();            
         this.title = this.movie.properties.title;
         this.light = new Light(this.title.length, this.ledDisplayWrapper);
         this.indexes = this.movie.indexes;
@@ -69,16 +69,17 @@
          }); 
         
          this.indexes =[]
-    };    
+    };  
 
     load(){
-
+        
         this.createCubes();
         this.loadTileToQubes();
         // this.createButtons(); 
         // this.rotateCube();
         this.light.generateLed();       
-        // this.controlPanel.generateHeatDots();
+        // this.controlPanel.generateHeatDots()
+               
     };
  };
 
