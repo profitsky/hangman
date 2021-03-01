@@ -2,7 +2,7 @@ export class Sufler
 {
    
     messagesForUser = {
-        welcome: " W E L C O M E  CAN YOU GUESS THE FILM TITLE FROM THE EMOJIS? UNPRESS TWO KNOBS AND TURN ON THE OVEN",
+        welcome: "* W E L C O M E *  CAN YOU GUESS THE FILM TITLE FROM THE EMOJIS? UNPRESS TWO KNOBS AND TURN ON THE OVEN",
         rules: "TEST"
     }  
 
@@ -12,10 +12,14 @@ export class Sufler
         this.timerDoteskWrapper = document.getElementById("dot-separator"); 
         this.minutesWrapper = document.getElementById("minutes");
         this.messageOutputWrapper = document.getElementById("message-output");
+        this.infOutputWrapper = document.querySelectorAll(".disp-sufler")
+        this.knobIndicatorWrapper = document.querySelectorAll(".knob-indicator")
+        this.knobLabelWrapper = document.querySelectorAll(".knob-label > span")
+        
         this.temporaryMessageContainer = "";           
         this.letterIndex = 0;
         this.addLetter = "";
-        this.characterNumber = 15;
+        this.characterNumber = 18;
         this.idInterval;
         this.isMessageRunning = false;
         this.message = "";      

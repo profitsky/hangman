@@ -39,7 +39,8 @@ export class PanelController
         this.shadowWrapper = document.querySelector(".knob-shadow");
         this.sufler = new Sufler();
         this.sufler.timeStarter();     
-        this.sufler.typeMessage(this.sufler.messagesForUser.welcome);
+        this.sufler.typeMessage(this.sufler.messagesForUser.welcome); 
+        this.sufler.knobLabelWrapper[0].classList.add("power-on");       
                    
     };
 
@@ -107,8 +108,7 @@ export class PanelController
                     this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
                     this.indicatorAngle = (this.angleValue - this.angleStartValue)                    
                     knob.style.transform =  "rotate(" + (this.indicatorAngle + this.angle) + "deg)";
-                    this.getKnobAngleValue(knob);             
-                                                           
+                    this.angValue(knob);
                 }; 
             });
         });
@@ -159,25 +159,46 @@ export class PanelController
         };      
     };
 
-    getKnobAngleValue(knob)
+    angValue = function getKnobAngleValue(element)
     {
-        const st = window.getComputedStyle(knob, null);
-        const tr = st.getPropertyValue("transform") || "fail...";
+        const st = window.getComputedStyle(element, null);
+        const tr = st.getPropertyValue("transform");
         let values = tr.split('(')[1];
             values = values.split(')')[0];
             values = values.split(',');            
         let a = values[0];
-        let b = values[1];
-        
-        let scale = Math.sqrt(a*a + b*b);        
-        let sin = b/scale;
+        let b = values[1];       
         let angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
-        return angle;
-      
+        
+        (angle >= 175 || angle <= -175) ? this.powerOnDetected() : this.powerOfDetected();
+        
     };
 
+    powerOnDetected()
+    {
+        this.sufler.infOutputWrapper.forEach((info) => {
+                info.classList.add("power-on")});
+        this.sufler.knobIndicatorWrapper.forEach((info) => {
+                info.classList.add("pwr-on")});
+        this.sufler.knobLabelWrapper[0].classList.remove("power-on");
+        this.sufler.knobLabelWrapper[1].classList.add("power-on");
+        
+                            
+    };
+
+    powerOfDetected()
+    {
+        this.sufler.infOutputWrapper.forEach((info) => {
+                info.classList.remove("power-on")})
+        this.sufler.knobIndicatorWrapper.forEach((info) => {
+                info.classList.remove("pwr-on")});
+        this.sufler.knobLabelWrapper[0].classList.add("power-on");
+        this.sufler.knobLabelWrapper[1].classList.remove("power-on");        
+    };
+
+
     loadPanelController()
-    {        
+    {            
         this.generateHeatDots();        
         this.knobsActve();
         this.setMouseDown();
