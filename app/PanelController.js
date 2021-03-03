@@ -34,13 +34,19 @@ export class PanelController
     constructor()
     {       
         this.buttonWrapper = document.querySelectorAll(".knob");
-        this.heatDotWrapper = document.querySelector("#heat-label");
-        this.loadFunctionality = this.loadPanelController();
-        this.shadowWrapper = document.querySelector(".knob-shadow");
+        this.heatDotWrapper = document.getElementById("heat-label");
+        this.divsCollection;       
+        this.shadowWrapper = document.querySelector(".knob-shadow");        
         this.sufler = new Sufler();
         this.sufler.timeStarter();     
         this.sufler.typeMessage(this.sufler.messagesForUser.welcome); 
-        this.sufler.knobLabelWrapper[0].classList.add("power-on");       
+        this.sufler.knobLabelWrapper[0].classList.add("power-on");
+        this.isPowerOn = false;
+        this.timeOutId;
+        this.dotTimeId;        
+        this.loadFunctionality = this.loadPanelController();
+       
+         
                    
     };
 
@@ -146,17 +152,18 @@ export class PanelController
     };    
 
     generateHeatDots()    
-    {
+    {   
         for (let i =0; i < this.dotsNumber; i++)
         {
             this.dotPositionX = (-((Math.cos(i*(this.heatRange/(this.dotsNumber-1))*Math.PI/180))*this.radius) + "px");
-            this.dotPositionY = (-((Math.sin(i*(this.heatRange/(this.dotsNumber-1))*Math.PI/180))*this.radius) + "px");            
-
+            this.dotPositionY = (-((Math.sin(i*(this.heatRange/(this.dotsNumber-1))*Math.PI/180))*this.radius) + "px"); 
             const dot = document.createElement("div");
             dot.classList.add("heat-dot");
             dot.style.transform = `translate(${this.dotPositionX},${this.dotPositionY})`         
             this.heatDotWrapper.appendChild(dot);           
-        };      
+        }; 
+
+        this.divsCollection = this.heatDotWrapper.querySelectorAll(".heat-dot");              
     };
 
     angValue = function getKnobAngleValue(element)
@@ -169,32 +176,105 @@ export class PanelController
         let a = values[0];
         let b = values[1];       
         let angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
-        
-        (angle >= 175 || angle <= -175) ? this.powerOnDetected() : this.powerOfDetected();
+
+        if (angle >= 176 || angle <= -176 && this.isPowerOn == false){   
+            this.powerOnDetected();            
+        } else if (this.isPowerOn == true){
+            this.powerOfDetected();            
+        }   
         
     };
 
     powerOnDetected()
     {
-        this.sufler.infOutputWrapper.forEach((info) => {
+        if(this.isPowerOn == false){
+            this.timeOutId = setTimeout(() => {
+                this.sufler.infOutputWrapper.forEach((info) => {
                 info.classList.add("power-on")});
+                this.heatKnobLight();
+                this.welcomeTopDots();
+                this.welcomeTopDots()              
+            }, 800);
         this.sufler.knobIndicatorWrapper.forEach((info) => {
-                info.classList.add("pwr-on")});
+            info.classList.add("pwr-on")});
         this.sufler.knobLabelWrapper[0].classList.remove("power-on");
         this.sufler.knobLabelWrapper[1].classList.add("power-on");
-        
-                            
+        this.isPowerOn = true;
+             
+        };                                
     };
 
     powerOfDetected()
-    {
+    {        
+        if(this.isPowerOn == true){
+        clearTimeout(this.timeOutId)
         this.sufler.infOutputWrapper.forEach((info) => {
                 info.classList.remove("power-on")})
         this.sufler.knobIndicatorWrapper.forEach((info) => {
                 info.classList.remove("pwr-on")});
         this.sufler.knobLabelWrapper[0].classList.add("power-on");
         this.sufler.knobLabelWrapper[1].classList.remove("power-on");        
+        this.isPowerOn = false;      
+        };
+        clearInterval(this.topDotsWrapper)  ;      
     };
+
+    heatKnobLight()
+    {
+        let index = 0;
+        let isGoDown = false;
+        this.dotTimeId = setInterval(() => {
+
+            if (index != this.divsCollection.length &&!isGoDown)
+            {                
+                this.divsCollection[index].classList.add("running");              
+            }else if (index >= this.divsCollection.length && index < this.divsCollection.length * 2)
+            {                
+                this.divsCollection[index - this.divsCollection.length].classList.remove("running");
+                isGoDown = true;
+            }else if(index >= this.divsCollection * 2)
+            {
+                index = 0;
+                clearInterval(this.dotTimeId)
+            }
+            index++;
+
+            console.log("siema")
+                    
+             
+        }, 55);        
+    };
+
+    welcomeTopDots()
+    {
+        const dots = document.querySelectorAll(".dot")
+       
+
+        let index = 0;
+        let isGoDown = false;
+        setInterval(() => {
+
+            if (index != dots.length &&!isGoDown)
+            {                
+                dots[index].classList.add("dot-welcome");              
+            }else if (index >= dots.length  && index < dots.length * 2)
+            {                
+                dots[index - dots.length].classList.remove("dot-welcome");
+                isGoDown = true;
+            }else if(index >= dots.length * 2)
+            {
+                index = 0;
+                
+            }
+            index++;
+
+            
+                  
+             
+        }, 15);        
+    }
+
+
 
 
     loadPanelController()
@@ -203,7 +283,6 @@ export class PanelController
         this.knobsActve();
         this.setMouseDown();
         this.setMouseMove()
-        this.setMouseUp();
-        
-   };
+        this.setMouseUp();     
+    };
 };

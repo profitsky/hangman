@@ -255,7 +255,9 @@ body{
     z-index: -10;
     display: flex;
     justify-content: center;
-    align-items: center;  
+    align-items: center;
+    border-radius: 50%;
+     
 }
 
 .dot{
@@ -264,6 +266,27 @@ body{
     width: 5px;
     height: 5px;
     border-radius: 50%;    
+}
+
+.dot.dot-welcome
+{
+       
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    box-shadow:
+    inset 0 0 5px #d9ff00c2,
+    inset 2px 0 8px #00ff0a,
+    inset -2px 0 8px #d9ff00c2,
+    inset 2px 0 30px #00ff0a,
+    inset -2px 0 30px #d9ff00c2,
+    0 0 5px #d9ff00c2,
+    -1px 0 8px #00ff0a,
+    1px 0 8px #d9ff00c2;
+                
+  
+             
+  
 }
 
 /*  MIDDLE SECTION */
@@ -732,13 +755,6 @@ body{
     color: rgba(0, 0, 0, 0);
 }
 
-
-
-
-
-
-
-
 .knob
 {    
     height: 80px;
@@ -760,7 +776,7 @@ body{
     transform: rotate(0deg);    
 }
 
-.knob-shadow
+/* .knob-shadow
 {
     position: absolute;
     height: 80px;
@@ -776,7 +792,7 @@ body{
                 rgba(255, 255, 255, 0.5) 0  2px 2px 2px;
 
     
-}
+} */
 
 /* .knob-shadow.unpressed
 {
@@ -822,7 +838,7 @@ body{
 .knob-indicator.pwr-on
 {   
     background: yellow;
-    text-shadow: 0 4px 30px rgba(255, 255, 0, 0.5),
+    box-shadow: 0 4px 30px rgba(255, 255, 0, 0.5),
                  0 -5px 40px rgba(150, 218, 23, 0.685); 
 }
 
@@ -871,13 +887,25 @@ body{
 {
     width: 8px;
     height: 8px;
-    position: absolute;
-       
+    position: absolute;       
     border-radius: 50%;
-    background-color: #0c0c0c;
+    background-color: rgb(29, 27, 27);
     border: 1px solid black;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5),
                 inset 0 0 1px 1px rgba(14, 13, 13, 0.5);
+}
+
+.heat-dot.running
+{
+    background-color: #00ff0a;
+    box-shadow: inset 0 0 5px #d9ff00c2,
+                inset 2px 0 8px #00ff0a,
+                inset -2px 0 8px #d9ff00c2,
+                inset 2px 0 30px #00ff0a,
+                inset -2px 0 30px #d9ff00c2,
+                0 0 5px #d9ff00c2,
+                -1px 0 8px #00ff0a,
+                1px 0 8px #d9ff00c2;
 }
 
 
@@ -1088,6 +1116,18 @@ body{
     }
 }
 
+
+@keyframes lights-on
+{
+    0%{
+        transform: rotate3d(0,0,0,0deg);
+    }
+
+    100%{
+        transform: rotate3d(1,1,0,180deg);
+    }
+}
+
 @keyframes rotate-door
 {
     0%{
@@ -1130,12 +1170,5 @@ body{
     100%
     {
         transform: translate(0, 0) rotateY(0deg);
-    }
-
-    
-
-    
-   
-
-    
+    }   
 }
