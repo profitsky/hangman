@@ -71,7 +71,7 @@ body{
 #right-slider
 {
     top: 0;
-    right: 0;
+    right: 0px;
     width:20%;
 }
 
@@ -952,6 +952,23 @@ body{
     font-weight: bold;
     color: #0c0c0c;
     text-transform: uppercase;
+}
+
+.question-mark
+{
+    color: #0c0c0c; 
+    text-shadow: 0 0 0px rgba(255, 255, 0, 0),
+                 0 0 0px rgba(150, 218, 23, 0)
+}
+
+.question-mark.qmark-active
+{
+    
+    color: rgb(148, 111, 56);  
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.5),
+                 0 0 35px rgba(150, 218, 23, 0.685);
+    transition: text-shadow 1s , color 0.5s;
+   
 }
 
 .cube

@@ -1,8 +1,8 @@
-import { Sufler} from "./Sufler.js"; 
+import { Sufler} from "./Sufler.js";
+import { Light} from "./LightController.js"; 
 
 export class PanelController
-{
-    
+{    
     dotsNumber = 12;
     heatRange = 180;
     radius = 55;
@@ -18,7 +18,6 @@ export class PanelController
     angle = 0; 
     indicatorAngle = 0;
     transformedAngle; 
-   
 
     objectGeomProperties = {
 
@@ -37,24 +36,19 @@ export class PanelController
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.getElementById("heat-label");
         this.divsCollection;
-        this.topDotsOrderedCollection = this.orderTopDots();    
+        this.topDotsOrderedCollection   
         this.shadowLeftWrapper = document.querySelector(".left-shadow");
         this.shadowRightWrapper = document.querySelector(".right-shadow");          
         this.sufler = new Sufler();
+        this.light = new Light();
         this.sufler.timeStarter();     
         this.sufler.typeMessage(this.sufler.messagesForUser.welcome); 
         this.sufler.knobLabelWrapper[0].classList.add("power-on");
         this.isPowerOn = false;
         this.timeOutId;
         this.dotTimeId;        
-        this.loadFunctionality = this.loadPanelController(); 
-        console.log(this.topDotsWrapper)       
-       
-         
-                   
+        this.loadFunctionality = this.loadPanelController();                
     };
-
-  
 
     knobsActve()
     {     
@@ -191,34 +185,40 @@ export class PanelController
 
     powerOnDetected()
     {
+        this.sufler.stopMessage(this.sufler.idInterval)
         if(this.isPowerOn == false){
             this.timeOutId = setTimeout(() => {
                 this.sufler.infOutputWrapper.forEach((info) => {
                 info.classList.add("power-on")});
                 this.heatKnobLight();
-                this.welcomeTopDots();
-                this.orderTopDots();
-                            
+                this.light.welcomeDotsDisplay(this.light.dotArr());
+                this.sufler.typeMessage(this.sufler.messagesForUser.rules); 
             }, 800);
         this.sufler.knobIndicatorWrapper.forEach((info) => {
             info.classList.add("pwr-on")});
         this.sufler.knobLabelWrapper[0].classList.remove("power-on");
         this.sufler.knobLabelWrapper[1].classList.add("power-on");
-        this.isPowerOn = true;
-             
+        this.light.cubeLightsOn(document.querySelectorAll(".question-mark"))
+        
+        this.isPowerOn = true;             
         };                                
     };
 
     powerOfDetected()
-    {        
+    {   
+        this.sufler.stopMessage(this.sufler.idInterval)     
         if(this.isPowerOn == true){
         clearTimeout(this.timeOutId)
+        clearTimeout(this.light.timeoutId);
         this.sufler.infOutputWrapper.forEach((info) => {
                 info.classList.remove("power-on")})
         this.sufler.knobIndicatorWrapper.forEach((info) => {
                 info.classList.remove("pwr-on")});
         this.sufler.knobLabelWrapper[0].classList.add("power-on");
-        this.sufler.knobLabelWrapper[1].classList.remove("power-on");        
+        this.sufler.knobLabelWrapper[1].classList.remove("power-on");
+        this.light.clearWelcomeDots(this.light.timeoutId, this.light.dotArr()) ;
+        this.light.cubeLightsOf(document.querySelectorAll(".question-mark"));
+        this.sufler.typeMessage(this.sufler.messagesForUser.welcome);       
         this.isPowerOn = false;      
         };
         clearInterval(this.topDotsWrapper)  ;      
@@ -229,7 +229,6 @@ export class PanelController
         let index = 0;
         let isGoDown = false;
         this.dotTimeId = setInterval(() => {
-
             if (index != this.divsCollection.length &&!isGoDown)
             {                
                 this.divsCollection[index].classList.add("running");              
@@ -245,41 +244,7 @@ export class PanelController
             }
             index++;             
         }, 35);        
-    };
-
-   
-
-    welcomeTopDots()
-    {
-        const dots = document.querySelectorAll(".dot");
-        let index = 0;
-        let isGoDown = false;
-
-
-        // setInterval(() => {
-        //     if (index <= (dots.length/2)-3 &&!isGoDown)
-        //     {                
-        //         dots[index].classList.add("dot-welcome");              
-        //     }else if (index >= dots.length/2  && index < dots.length)
-        //     {                
-        //         dots[index - dots.length/2].classList.remove("dot-welcome");
-        //         isGoDown = true;
-        //     }else if(index >= dots.length)
-        //     {
-        //         index = 0;
-        //     }
-        //     index++;       
-                  
-             
-        // }, 105);    
-        
-        dots[dots.length/2-2].classList.add("dot-welcome")        
-    }
-
-   
-
-
-
+    };  
 
     loadPanelController()
     {            

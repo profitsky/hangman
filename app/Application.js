@@ -77,8 +77,11 @@
         this.loadTileToQubes();
         // this.createButtons(); 
         // this.rotateCube();
-        this.light.generateLed();       
-        // this.controlPanel.generateHeatDots()
+        this.light.generateLed();
+        
+           
+           
+       
                
     };
  };

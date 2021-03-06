@@ -3,7 +3,7 @@ export class Sufler
    
     messagesForUser = {
         welcome: "* W E L C O M E *  CAN YOU GUESS THE FILM TITLE FROM THE EMOJIS? UNPRESS TWO KNOBS AND TURN ON THE OVEN",
-        rules: "TEST"
+        rules: "OPEN THE OVEN DOOR AND PUT AN ITEM IN THERE, ITEM YOU CAN FIND ON THE LEFT HAND SIDE MENU"
     }  
 
     constructor()
@@ -14,8 +14,7 @@ export class Sufler
         this.messageOutputWrapper = document.getElementById("message-output");
         this.infOutputWrapper = document.querySelectorAll(".disp-sufler")
         this.knobIndicatorWrapper = document.querySelectorAll(".knob-indicator")
-        this.knobLabelWrapper = document.querySelectorAll(".knob-label > span")
-        
+        this.knobLabelWrapper = document.querySelectorAll(".knob-label > span")        
         this.temporaryMessageContainer = "";           
         this.letterIndex = 0;
         this.addLetter = "";
