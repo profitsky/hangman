@@ -31,6 +31,31 @@ export class Light
 
     }
 
+      orderTopDots()
+    {
+        const dots = document.querySelectorAll(".dot")
+        const topArr = [], bottomArr = [];
+        let resultArr = [] ;
+        for(let i = 0; i < dots.length/2-3; i++)
+        {
+            topArr.push(dots[i])            
+        };
+
+        topArr.push(dots[dots.length/2-1]);
+        topArr.push(dots[dots.length/2+1]);
+
+        for(let j = dots.length-1; j > dots.length-dots.length/2; j-- )
+        {
+            bottomArr.push(dots[j]);
+        };
+
+        bottomArr.push(dots[dots.length/2-2])
+
+        resultArr =[...topArr, ...bottomArr];
+     
+        
+    };
+
     
 
 

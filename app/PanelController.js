@@ -33,10 +33,13 @@ export class PanelController
 
     constructor()
     {       
+        this.topDotsWrapper = document.getElementsByClassName(".dot");
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.getElementById("heat-label");
-        this.divsCollection;       
-        this.shadowWrapper = document.querySelector(".knob-shadow");        
+        this.divsCollection;
+        this.topDotsOrderedCollection = this.orderTopDots();    
+        this.shadowLeftWrapper = document.querySelector(".left-shadow");
+        this.shadowRightWrapper = document.querySelector(".right-shadow");          
         this.sufler = new Sufler();
         this.sufler.timeStarter();     
         this.sufler.typeMessage(this.sufler.messagesForUser.welcome); 
@@ -44,11 +47,14 @@ export class PanelController
         this.isPowerOn = false;
         this.timeOutId;
         this.dotTimeId;        
-        this.loadFunctionality = this.loadPanelController();
+        this.loadFunctionality = this.loadPanelController(); 
+        console.log(this.topDotsWrapper)       
        
          
                    
     };
+
+  
 
     knobsActve()
     {     
@@ -62,24 +68,23 @@ export class PanelController
 
     pressKnobs(knob)
     {
-        if (knob.classList.contains("power-knob") && this.isLeftPressed) {
-
-            this.isLeftPressed = false;            
-            knob.classList.add("unpressed");
-            // this.shadowWrapper.classList.add("unpressed")                           
+        if (knob.classList.contains("power-knob") && this.isLeftPressed) {                       
+          
+            this.shadowLeftWrapper.classList.add("unpressed");            
+            this.isLeftPressed = false;                         
         } 
         else if (knob.classList.contains("heat-knob") && this.isRightPressed) {
 
-            knob.classList.add("unpressed");
+            this.shadowRightWrapper.classList.add("unpressed")  
             this.isRightPressed = false;
         } else if (knob.classList.contains("power-knob") && !this.isLeftPressed) {
-
-            knob.classList.remove("unpressed");
-            // this.shadowWrapper.classList.remove("unpressed");
-            this.isLeftPressed = true;                            
+           
+            this.shadowLeftWrapper.classList.remove("unpressed");
+            this.isLeftPressed = true; 
+                                     
         } else if (knob.classList.contains("heat-knob") && !this.isRightPressed) {
 
-            knob.classList.remove("unpressed");
+            this.shadowRightWrapper.classList.remove("unpressed");
             this.isRightPressed = true;         
         }  
     };  
@@ -181,8 +186,7 @@ export class PanelController
             this.powerOnDetected();            
         } else if (this.isPowerOn == true){
             this.powerOfDetected();            
-        }   
-        
+        }         
     };
 
     powerOnDetected()
@@ -193,7 +197,8 @@ export class PanelController
                 info.classList.add("power-on")});
                 this.heatKnobLight();
                 this.welcomeTopDots();
-                this.welcomeTopDots()              
+                this.orderTopDots();
+                            
             }, 800);
         this.sufler.knobIndicatorWrapper.forEach((info) => {
             info.classList.add("pwr-on")});
@@ -232,47 +237,46 @@ export class PanelController
             {                
                 this.divsCollection[index - this.divsCollection.length].classList.remove("running");
                 isGoDown = true;
-            }else if(index >= this.divsCollection * 2)
+            }            
+            else
             {
                 index = 0;
                 clearInterval(this.dotTimeId)
             }
-            index++;
-
-            console.log("siema")
-                    
-             
-        }, 55);        
+            index++;             
+        }, 35);        
     };
+
+   
 
     welcomeTopDots()
     {
-        const dots = document.querySelectorAll(".dot")
-       
-
+        const dots = document.querySelectorAll(".dot");
         let index = 0;
         let isGoDown = false;
-        setInterval(() => {
 
-            if (index != dots.length &&!isGoDown)
-            {                
-                dots[index].classList.add("dot-welcome");              
-            }else if (index >= dots.length  && index < dots.length * 2)
-            {                
-                dots[index - dots.length].classList.remove("dot-welcome");
-                isGoDown = true;
-            }else if(index >= dots.length * 2)
-            {
-                index = 0;
-                
-            }
-            index++;
 
-            
+        // setInterval(() => {
+        //     if (index <= (dots.length/2)-3 &&!isGoDown)
+        //     {                
+        //         dots[index].classList.add("dot-welcome");              
+        //     }else if (index >= dots.length/2  && index < dots.length)
+        //     {                
+        //         dots[index - dots.length/2].classList.remove("dot-welcome");
+        //         isGoDown = true;
+        //     }else if(index >= dots.length)
+        //     {
+        //         index = 0;
+        //     }
+        //     index++;       
                   
              
-        }, 15);        
+        // }, 105);    
+        
+        dots[dots.length/2-2].classList.add("dot-welcome")        
     }
+
+   
 
 
 
@@ -283,6 +287,7 @@ export class PanelController
         this.knobsActve();
         this.setMouseDown();
         this.setMouseMove()
-        this.setMouseUp();     
+        this.setMouseUp();        
+         
     };
 };
