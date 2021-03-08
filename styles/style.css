@@ -8,6 +8,7 @@
     padding: 0;
     box-sizing: border-box;
     z-index: 0;
+    user-select: none;
 }
 
 body{
@@ -53,7 +54,7 @@ body{
     repeating-linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 1.2%, rgba(255, 255, 255, 0.15) 2.2%), linear-gradient(180deg, rgb(199, 199, 199) 0%, rgb(230, 230, 230) 47%, rgb(199, 199, 199) 53%, rgb(179, 179, 179) 100%);    
 }
 
-.slider.opened
+.slider
 {
     position: absolute;    
     background-color: rgba(12, 12, 12, 0.8);    
@@ -64,21 +65,41 @@ body{
 #left-slider
 {
     top: 0;
-    left: 0;
-    width:30%;
+    left: -25%;
+    width: 20%;
+    transition: 0.5s;
+}
+
+#left-slider.show-left
+{
+    left: -20%;
+    transition: 0.5s;
+}
+
+#left-slider.open-left
+{
+    left: 0%;
+    transition: 0.5s;
 }
 
 #right-slider
 {
     top: 0;
-    right: 0px;
-    width:20%;
+    right: -25%;
+    width: 20%;
+    transition: 0.5s;
+}
+
+#right-slider.show-right
+{
+    right: -20%;
+    transition: 0.5s;
 }
 
 .trigger
 {
     position: absolute;
-    height: 150px;
+    height: 250px;
     width: 50px;
     background-color: rgba(92, 90, 90, 0.5);   
     text-transform: uppercase;
@@ -87,11 +108,40 @@ body{
     text-align: center;
     display: block;
     top: 50%;
-    transform: translateY(-50%);
+    overflow: hidden;
+    transform: translateY(-50%);    
+}
+
+.trigger span
+{
     font-size: 1em;
     font-weight: bold;
     color: yellow;
     cursor: pointer;
+    transition: 0.5s;
+}
+
+.trigger:hover span
+{
+    letter-spacing: 8px;    
+}
+
+.trigger span::before
+{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 150%;
+    width: 100%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.25), transparent );
+    transform: skewY(45deg) translateY(-65%);
+    transition: 0.5s;
+}
+
+.trigger:hover span::before
+{
+    transform: skewY(45deg) translateY(0%);    
 }
 
 #trigger-left
@@ -110,6 +160,15 @@ body{
     border-top-left-radius: 50%;
 }
 
+#trigger-right span::before
+{
+    transform: skewY(-45deg) translateY(-65%);
+}
+
+#trigger-right:hover span::before
+{
+    transform: skewY(-45deg) translateY(0%);
+}
 .bowl
 {   
     position: absolute;    
@@ -203,12 +262,6 @@ body{
     z-index: -1;
     border-radius: 50%;
 }
-
-
-
-
-
-
 
 .top-section.wrapper
 {
@@ -406,7 +459,8 @@ body{
     /* animation-name: rotate-door; */
     animation-duration: 5s;
     animation-fill-mode: forwards;
-    transform-origin: bottom;    
+    transform-origin: bottom;
+    transform: rotateX(-1deg);   
     z-index: 2;
 }
 
@@ -425,6 +479,7 @@ body{
 {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .cooker-door-element
@@ -544,10 +599,11 @@ body{
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 20px;
     width: 100%;
     transform-origin: bottom;
-    background-color: black; 
+    background-color: black;
+    border: solid yellow 2px; 
 }
 
 .handle-top
@@ -560,6 +616,11 @@ body{
     transform: rotateX(90deg) translateY(40px) translateZ(20px);
 }
 
+.handle-front
+{
+    transform: translateZ(20px);
+}
+
 .handle-back
 {
     transform: translateZ(40px);
@@ -569,7 +630,7 @@ body{
 {
     width: 50%;
     height: 25%;
-    position: relative;    
+    position: relative;     
 }
 
 #window

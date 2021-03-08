@@ -1,5 +1,7 @@
 import { Sufler} from "./Sufler.js";
-import { Light} from "./LightController.js"; 
+import { Light} from "./LightController.js";
+import { Items} from "./LeftSlider.js";
+import { Keyboard} from "./RightSlider.js";  
 
 export class PanelController
 {    
@@ -36,11 +38,13 @@ export class PanelController
         this.buttonWrapper = document.querySelectorAll(".knob");
         this.heatDotWrapper = document.getElementById("heat-label");
         this.divsCollection;
-        this.topDotsOrderedCollection   
+        this.topDotsOrderedCollection;   
         this.shadowLeftWrapper = document.querySelector(".left-shadow");
         this.shadowRightWrapper = document.querySelector(".right-shadow");          
         this.sufler = new Sufler();
         this.light = new Light();
+        this.leftSlider = new Items();
+        this.keyboard = new Keyboard();
         this.sufler.timeStarter();     
         this.sufler.typeMessage(this.sufler.messagesForUser.welcome); 
         this.sufler.knobLabelWrapper[0].classList.add("power-on");
@@ -89,7 +93,8 @@ export class PanelController
         knob.addEventListener("mousedown", (e) => {
             
             if(!this.isAngleValueReadable && !this.isLeftPressed && !this.knobMousePressed && knob.classList.contains("power-knob"))
-            {                
+            {               
+                e.stopPropagation(); 
                 this.getOutLineGeomProperties(knob);
                 let x = e.clientX - this.objectGeomProperties.centerX;
                 let y = e.clientY - this.objectGeomProperties.centerY;
@@ -106,8 +111,9 @@ export class PanelController
         this.buttonWrapper.forEach(knob =>{
         knob.addEventListener("mousemove", (e) => {                           
                 
-            if(this.isLeftPressed == false && this.knobMousePressed == true && this.isAngleValueReadable === true && knob.classList.contains("power-knob"))
+            if(this.isLeftPressed == false && this.knobMousePressed && this.isAngleValueReadable === true && knob.classList.contains("power-knob"))
                 {
+                    e.stopPropagation();
                     let x = e.clientX - this.objectGeomProperties.centerX;
                     let y = e.clientY - this.objectGeomProperties.centerY;
                     this.angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;
@@ -123,7 +129,8 @@ export class PanelController
     {           
             this.buttonWrapper.forEach(knob =>{
                 knob.addEventListener("mouseup", (e) => {                         
-                if(!this.isLeftPressed && knob.classList.contains("power-knob") && this.isAngleValueReadable == true &&  this.knobMousePressed == true){                    
+                if(!this.isLeftPressed && knob.classList.contains("power-knob") && this.isAngleValueReadable == true &&  this.knobMousePressed == true){ 
+                    e.stopPropagation();                   
                     let x = e.clientX - this.objectGeomProperties.centerX;
                     let y = e.clientY - this.objectGeomProperties.centerY;
                     const angleValue = (this.radianToDeg * Math.atan2(y, x)) + 180;               
@@ -137,7 +144,7 @@ export class PanelController
                 }; 
             });
         });
-    };
+    }; 
 
     getOutLineGeomProperties(knob)
     {        
@@ -198,8 +205,9 @@ export class PanelController
             info.classList.add("pwr-on")});
         this.sufler.knobLabelWrapper[0].classList.remove("power-on");
         this.sufler.knobLabelWrapper[1].classList.add("power-on");
-        this.light.cubeLightsOn(document.querySelectorAll(".question-mark"))
-        
+        this.light.cubeLightsOn(document.querySelectorAll(".question-mark"));
+        this.leftSlider.show();
+        this.keyboard.show();
         this.isPowerOn = true;             
         };                                
     };
@@ -218,7 +226,9 @@ export class PanelController
         this.sufler.knobLabelWrapper[1].classList.remove("power-on");
         this.light.clearWelcomeDots(this.light.timeoutId, this.light.dotArr()) ;
         this.light.cubeLightsOf(document.querySelectorAll(".question-mark"));
-        this.sufler.typeMessage(this.sufler.messagesForUser.welcome);       
+        this.sufler.typeMessage(this.sufler.messagesForUser.welcome);
+        this.leftSlider.hide();
+        this.keyboard.hide();       
         this.isPowerOn = false;      
         };
         clearInterval(this.topDotsWrapper)  ;      
@@ -252,7 +262,7 @@ export class PanelController
         this.knobsActve();
         this.setMouseDown();
         this.setMouseMove()
-        this.setMouseUp();        
+        this.setMouseUp();
          
     };
 };

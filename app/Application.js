@@ -1,6 +1,7 @@
  import { Movies} from "./Movies.js";
  import { Light} from "./LightController.js";
- import { PanelController} from "./PanelController.js";  
+ import { PanelController} from "./PanelController.js";
+ import { Door} from "./CookerCover.js";   
 
  class Application{
 
@@ -14,6 +15,7 @@
         this.movie = new Movies();            
         this.title = this.movie.properties.title;
         this.light = new Light(this.title.length, this.ledDisplayWrapper);
+        this.door = new Door();
         this.indexes = this.movie.indexes;
         this.ketboardLock = false;      
     };    
@@ -75,9 +77,16 @@
         
         this.createCubes();
         this.loadTileToQubes();
-        // this.createButtons(); 
+        this.createButtons(); 
         // this.rotateCube();
         this.light.generateLed();
+        this.door.setMouseDown()
+        this.door.setMouseMove();
+        this.door.setMouseUp()
+        this.door.mouseLeave()
+        this.door.getOutLineGeomProperties()
+        
+        
         
            
            
