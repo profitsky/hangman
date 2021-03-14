@@ -1,8 +1,7 @@
 import { Sufler} from "./Sufler.js";
 import { Light} from "./LightController.js";
 import { Items} from "./LeftSlider.js";
-import { Keyboard} from "./RightSlider.js";  
-
+import { Keyboard} from "./RightSlider.js";
 export class PanelController
 {    
     dotsNumber = 12;
@@ -19,7 +18,7 @@ export class PanelController
     angleValue =0; 
     angle = 0; 
     indicatorAngle = 0;
-    transformedAngle; 
+    transformedAngle;   
 
     objectGeomProperties = {
 
@@ -36,7 +35,12 @@ export class PanelController
     {       
         this.topDotsWrapper = document.getElementsByClassName(".dot");
         this.buttonWrapper = document.querySelectorAll(".knob");
+        this.barWrapper = document.querySelector(".oven-front");
+        this.heatKnobWrapper = document.querySelector(".heat-knob");
         this.heatDotWrapper = document.getElementById("heat-label");
+        this.topWallWrapper = document.getElementById("top-light");
+        this.cookerWallsWrapper = document.querySelectorAll(".wall-light");
+        this.cookerWindowWrapper = document.querySelector(".window-frame");
         this.divsCollection;
         this.topDotsOrderedCollection;   
         this.shadowLeftWrapper = document.querySelector(".left-shadow");
@@ -51,7 +55,10 @@ export class PanelController
         this.isPowerOn = false;
         this.timeOutId;
         this.dotTimeId;        
-        this.loadFunctionality = this.loadPanelController();                
+        this.loadFunctionality = this.loadPanelController();
+        this.isBowlInside = false;
+        this.classArr = ["set1", "set2", "set3", "set4", "set5", "set6"];
+        this.gapCounter = 0;
     };
 
     knobsActve()
@@ -199,7 +206,8 @@ export class PanelController
                 info.classList.add("power-on")});
                 this.heatKnobLight();
                 this.light.welcomeDotsDisplay(this.light.dotArr());
-                this.sufler.typeMessage(this.sufler.messagesForUser.rules); 
+                this.sufler.typeMessage(this.sufler.messagesForUser.rules);
+                this.cookerLightOn(); 
             }, 800);
         this.sufler.knobIndicatorWrapper.forEach((info) => {
             info.classList.add("pwr-on")});
@@ -207,7 +215,7 @@ export class PanelController
         this.sufler.knobLabelWrapper[1].classList.add("power-on");
         this.light.cubeLightsOn(document.querySelectorAll(".question-mark"));
         this.leftSlider.show();
-        this.keyboard.show();
+        this.keyboard.show();        
         this.isPowerOn = true;             
         };                                
     };
@@ -228,7 +236,8 @@ export class PanelController
         this.light.cubeLightsOf(document.querySelectorAll(".question-mark"));
         this.sufler.typeMessage(this.sufler.messagesForUser.welcome);
         this.leftSlider.hide();
-        this.keyboard.hide();       
+        this.keyboard.hide();
+        this.cookerLightOff();        
         this.isPowerOn = false;      
         };
         clearInterval(this.topDotsWrapper)  ;      
@@ -254,7 +263,50 @@ export class PanelController
             }
             index++;             
         }, 35);        
-    };  
+    };
+
+    heatKnobProgress(steps, limit)
+    {
+        let rotate = steps *(this.heatRange/limit)
+        this.heatKnobWrapper.style.transform =  "rotate(" + (rotate) + "deg)";
+    };
+
+    heatLightProgress(step)
+    {
+        
+        for (let i = this.gapCounter; i < this.gapCounter + 2; i++){
+        this.divsCollection[i].classList.add(this.classArr[step-1])
+        console.log("iterator : " + i)
+        console.log("style : " + (step-1))
+        }
+
+        this.gapCounter += 2;
+        
+        
+        
+    };
+
+    cookerLightOn()
+    {
+        this.topWallWrapper.classList.add("prwed2");
+        this.barWrapper.classList.add("pwrr");
+        this.cookerWindowWrapper.classList.add("actv");
+         this.cookerWallsWrapper.forEach((wall) =>
+        {
+            wall.classList.add("prwed");
+        })
+    };
+
+    cookerLightOff()
+    {
+        this.topWallWrapper.classList.remove("prwed2");
+        this.barWrapper.classList.remove("pwrr");
+        this.cookerWindowWrapper.classList.remove("actv");
+        this.cookerWallsWrapper.forEach((wall) =>
+        {
+            wall.classList.remove("prwed");
+        })
+    };
 
     loadPanelController()
     {            

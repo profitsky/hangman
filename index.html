@@ -14,10 +14,10 @@
 
 <body>
     <section id="left-slider" class="slider">
-        <div id="fish-bowl">
-            <div class="bowl">
+        <div id="fish-container">
+            <div id="fish-bowl" class="bowl" draggable="true">
                 <div class="water">
-                    <div class="fish"></div>
+                    <div id="fish"></div>
                 </div>
             </div>
             <div class="bowl-shadow"></div>
@@ -27,6 +27,10 @@
     <section id="right-slider" class="slider">
         <div id="trigger-right" class="trigger"><span>keyboard</span></div>
         <div id="input" class="input-keys"></div>
+        <div id="tip-display">
+            <span id="category" class="tips">Category</span>
+            <span id="emojis" class="tips">EMOJIS &#128705 &#128298</span>
+        </div>
     </section>
     <div class="game-container">
         <section id="display" class="top-section wrapper">
@@ -90,11 +94,16 @@
                     </div>
                     <div id="window" class="cooker-door-element">
                         <div class="window-frame">
+                            <div id="smoke" class="hide-smoke">
+                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
                             <div class="stiffener window-top"></div>
-                            <div class="stiffener window-bottom"></div>
+                            <div class="stiffener window-bottom"> </div>
                             <div class="stiffener window-left"></div>
                             <div class="stiffener window-right"></div>
                         </div>
+                        <div id="blood" class="hidden"></div>
+                        <div id="shadow"></div>
                     </div>
                     <div id="bottom-cover" class="cooker-door-element flat-metal"></div>
                 </div>
@@ -105,11 +114,25 @@
                     <div class="rubber-seal">
                         <div class="internal-box">
                             <div class="oven-front oven-wall"></div>
-                            <div class="oven-back oven-wall"></div>
-                            <div class="oven-top oven-wall"></div>
+                            <div class="oven-back wall-light oven-wall"></div>
+                            <div id="top-light" class="oven-top oven-wall"></div>
                             <div class="oven-bottom oven-wall"></div>
-                            <div class="oven-left oven-wall"></div>
-                            <div class="oven-right oven-wall"></div>
+                            <div class="oven-left wall-light oven-wall"></div>
+                            <div class="oven-right wall-light oven-wall"></div>
+                            <div class="oven-center oven-wall">
+                                <div id="avatar" draggable="true"></div>
+                                <div id="win-message">thanks mate</div>
+                                <svg>
+                                    <filter id="fire">
+                                        <feTurbulence id="turbulence" baseFrequency="0.1 0.1" numOctaves="2" seed="2">
+                                            <animate attributeName="baseFrequency" dur="10s" keyTimes="0;0.5;1"
+                                                values="0.02 0.06;0.04 0.08;0.02 0.06" repeatCount="indefinite">
+                                            </animate>
+                                        </feTurbulence>
+                                        <feDisplacementMap scale="5" in="SourceGraphic"></feDisplacementMap>
+                                    </filter>
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -28,7 +28,7 @@ body{
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 720px;
+    width: 800px;
     height: 100%;
     display: flex;
     justify-content: center;    
@@ -90,10 +90,50 @@ body{
     transition: 0.5s;
 }
 
+#tip-display
+{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    width: 80%;
+    height: 20%;
+    border-radius: 25px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px 3px rgba(15, 15, 15, 1), 
+                0 0 0 2px #000,
+                0 0 0 5px #313131,
+                0 0 0 7px #080808;
+}
+
 #right-slider.show-right
 {
     right: -20%;
     transition: 0.5s;
+}
+
+#right-slider.open-right
+{
+    right: 0%;
+    transition: 0.5s;
+}
+
+#tip-display
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(194, 47, 47, 0.1);  
+    text-shadow: 0 0 2px rgba(255, 255, 0, 0.5),
+                 0 0 15px rgba(150, 218, 23, 0.685);      
+}
+
+#emojis
+{
+    color: white;
 }
 
 .trigger
@@ -169,18 +209,25 @@ body{
 {
     transform: skewY(-45deg) translateY(0%);
 }
+
 .bowl
 {   
     position: absolute;    
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) rotate(0deg);
     width: 220px;
     height: 220px;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     border: solid 4px #fff;
     transform-origin: bottom center;
+    cursor: pointer;    
+}
+
+.bowl.gone
+{
+    display: none;
 }
 
 .bowl::before
@@ -195,6 +242,7 @@ body{
     background-color: rgba(66, 66, 66, 1);
     border-radius: 50%;
     border: solid 4px #fff;
+    
 }
 
 .bowl::after
@@ -208,6 +256,11 @@ body{
     height: 50px;
     background-color: rgba(255, 255, 255, 0.05);
     border-radius: 50%;
+}
+
+.dragging
+{
+    display: none;
 }
 
 .water
@@ -224,6 +277,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    transform-origin: top center;
+    transform: rotateZ(0deg);
+    
 }
 
 .water::before
@@ -239,7 +295,7 @@ body{
     
 }
 
-.fish
+#fish
 {
     background-image: url("/assets/images/gold-fish.png");    
     width: 80px;
@@ -247,7 +303,6 @@ body{
     background-size: 80px;
     background-repeat: no-repeat;  
     animation: swimming-fish 5s linear infinite;
-    
 }
 
 .bowl-shadow
@@ -266,7 +321,7 @@ body{
 .top-section.wrapper
 {
     position: relative;
-    height: 150px;
+    height: 200px;
 }
 
 .output{
@@ -274,7 +329,7 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;   
-    height: 60px;
+    height: 80px;
     padding: 20px;
     border-radius: 20px;    
     display: flex;
@@ -310,7 +365,6 @@ body{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-     
 }
 
 .dot{
@@ -336,10 +390,6 @@ body{
     0 0 5px #d9ff00c2,
     -1px 0 8px #00ff0a,
     1px 0 8px #d9ff00c2;
-                
-  
-             
-  
 }
 
 /*  MIDDLE SECTION */
@@ -348,7 +398,7 @@ body{
     perspective: 3500px;
     flex-grow: 8;
     background-color: #1b1b1b;
-    width: 710px;
+    width: 790px;
     height: 100%;    
     position: relative;
     background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15));            
@@ -444,8 +494,80 @@ body{
 
 .oven-front
 {
-    background: repeating-linear-gradient(white, black 15px, white 30px);
+    background: repeating-linear-gradient(rgb(65, 63, 63), black 15px, rgb(49, 48, 48) 30px);
     transform: translateY(30%) rotateX(90deg);
+}
+
+.oven-front.pwrr
+{
+    background: repeating-linear-gradient(rgb(255, 254, 254), rgb(46, 45, 45) 15px, rgb(255, 255, 255) 30px);
+    transform: translateY(30%) rotateX(90deg);
+}
+
+.oven-top.prwed2
+{
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15));
+    box-shadow: inset 0 0 554px rgba(217, 255, 0, 0.315),
+                inset 20px 0 181px #00ff0a,
+                inset -20px 0 181px #d9ff00c2,
+                inset 20px 0 40px #00ff0a,
+                inset -20px 0 40px #d9ff00c2,
+                inset 0 0 150px #d9ff001a,
+                inset -20px 0 18px #00ff0a,
+                inset 20px 0 18px #d9ff00c2;   
+}
+
+.oven-left.prwed,
+.oven-right.prwed,
+.oven-back.prwed
+{
+    background-image: linear-gradient( rgb(29, 28, 28), rgb(15, 15, 15));  
+    box-shadow: inset 0 0 20px 0 rgba(217, 255, 0, 0.315),
+                inset 0 0 40px 0 #00ff0a,
+                inset 0 0 60px 0 #00ff0a,
+                inset 0 0 120px 0 #00ff0a;
+}
+
+.oven-center
+{
+    transform: translateZ(-50px) translateY(-20%);
+}
+
+#avatar
+{
+    position: absolute;
+    border-radius: 50%;    
+    top: 100%;
+    left: 50%;    
+    transform: translate(-50%, -100%);
+    width: 240px;
+    height: 240px;
+    opacity: 1;  
+    transition: opacity 1s;
+}
+
+#avatar.activated
+{
+    position: absolute;
+    opacity: 0.5;    
+    transform: translate(-50%, -100%);
+    box-shadow: 0 0 55px rgba(217, 255, 0, 0.315),
+                 2px 0 18px #00ff0a,
+                 -2px 0 18px #d9ff00c2,
+                2px 0 10px #00ff0a,
+                -2px 0 10px #d9ff00c2,
+                inset 0 0 10px #d9ff001a,
+                inset -10px 0 18px #00ff0a,
+                inset 10px 0 18px #d9ff00c2;
+    filter: url(#fire); 
+    transition: 0.5s;      
+}
+
+#avatar.activated.over
+{
+    opacity: 0.2;
+    width: 280px;
+    height: 280px; 
 }
 
 .cooker-door-cover
@@ -455,8 +577,7 @@ body{
     top: 0;
     left: 0;    
     width: 100%;
-    height: 100%;    
-    /* animation-name: rotate-door; */
+    height: 100%; 
     animation-duration: 5s;
     animation-fill-mode: forwards;
     transform-origin: bottom;
@@ -472,7 +593,6 @@ body{
     width: 100%;
     height: 100%;    
     border: 2px black solid;
-
 }
 
 .front-cooker-door
@@ -506,8 +626,7 @@ body{
 .bracket
 {
     width: 100px;
-    height: 40px;
-    background-color: yellow;
+    height: 40px;    
     position: relative;     
 }
 
@@ -524,14 +643,15 @@ body{
 .brc-top
 {
     transform: translateY(-100%) rotateX(-90deg);   
-    border-bottom: 50px solid chartreuse;    
-    border-left: 50px solid transparent;    
+    border-bottom: 50px solid rgb(48, 46, 46);    
+    border-left: 50px solid transparent;
+    background-image: ;   
 }
 
 .brc-bottom
 {
     transform: translateY(-10px) rotateX(-90deg) ;
-    border-bottom: 50px solid chartreuse;    
+    border-bottom: 50px solid rgb(48, 46, 46);   
     border-left: 50px solid transparent;
 }
 
@@ -539,20 +659,20 @@ body{
 {
     transform: translateX(0%) rotateY(-45deg) ;
     transform-origin: left;
-    background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     width: 70%;
 }
 
 .brc-right
 {
-    background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     transform: translateX(74px) translateZ(25px) rotateY(270deg);    
     width: 50px;
 }
 
 .brc-front
 {
-    background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     transform: translateZ(50px) translateX(50px);
     width: 50px;    
 }
@@ -561,14 +681,14 @@ body{
 .brc-top-right
 {
     transform: translateY(-100%) rotateX(-90deg);   
-    border-bottom: 50px solid chartreuse;    
+    border-bottom: 50px solid rgb(48, 46, 46);     
     border-right: 50px solid transparent;  
 }
 
 .brc-bottom-right
 {
     transform: translateY(-10px) rotateX(-90deg) ;
-    border-bottom: 50px solid chartreuse;    
+    border-bottom: 50px solid rgb(48, 46, 46);    
     border-right: 50px solid transparent;
 }
 
@@ -576,20 +696,20 @@ body{
 {
     transform: translateZ(50px) translateX(50px) rotateY(45deg) ;
     transform-origin: left;
-    background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     width: 70%;
 }
 
 .brc-left-right
 {
-    background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     transform: translateX(-26px) translateZ(25px) rotateY(270deg);    
     width: 50px;
 }
 
 .brc-front-right
 {
-     background-color: chartreuse;
+    background-image: linear-gradient( rgb(48, 46, 46), rgb(15, 15, 15)); 
     transform: translateZ(50px) ;
     width: 50px; 
 }
@@ -602,8 +722,7 @@ body{
     height: 20px;
     width: 100%;
     transform-origin: bottom;
-    background-color: black;
-    border: solid yellow 2px; 
+    background-color: black;    
 }
 
 .handle-top
@@ -641,6 +760,18 @@ body{
     border-bottom: 30px solid;
     border-left: 70px solid;
     border-right: 70px solid;
+    overflow: hidden;
+}
+
+#shadow
+{
+    position: absolute;
+    top: 0;
+    left: 120%;
+    height: 100%;
+    width: 600%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.25), transparent );
+    transform: skewX(45deg) translateX(0%);
 }
 
 #bottom-cover
@@ -652,7 +783,7 @@ body{
 {
     height: 50px;
     transform: translateY(-50%) translateZ(-25px) rotateX(90deg);
-    background-color: yellow;
+    background-color: black;    
 }
 
 .window-frame
@@ -663,9 +794,19 @@ body{
     left: -10px;
     right: -10px;
     transform-origin: center;
-    background-color: rgba(0, 0, 0, 0.8);  
-
+    background-color: rgba(0, 0, 0, 0.8);
 }
+
+.window-frame.actv
+{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.window-frame.actv.smoke
+{
+    background-color: yellow;
+}
+
 
 .stiffener
 {
@@ -680,7 +821,6 @@ body{
     transform: rotateY(90deg) translateX(25px);
     width: 50px;
     left: -4%;
-    
 }
 
 .window-right
@@ -702,6 +842,93 @@ body{
     transform: rotateX(90deg) translateY(-25px);
     bottom: -6%;
     height: 50px;
+}
+
+#smoke.hide-smoke
+{
+    display: none;
+    transition: 0.5s;
+}
+
+#smoke
+{
+    height: 110%;
+    width: 100%;
+    border: 2px sienna solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+#smoke > span
+{    
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #807b7b;
+    display: block;    
+}
+
+#blood
+{
+    position: absolute;
+    background-image: url("/assets/images/blood.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;      
+    transform:scale(0);
+    animation: animateBlood 0.2s linear forwards;
+    
+}
+
+#blood.hidden
+{
+    display: none;
+}
+
+#win-message.win-act
+{
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    margin: 10px;
+    top: 25%;
+    border-radius: 10px;
+    background-color: white;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    line-height: 80px;
+    animation: animateWinMessage 4s linear forwards;
+}
+
+#win-message::before
+{
+    content: "";
+    position: absolute;
+    background-color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    right: -30px;
+    bottom: -30px;
+    animation-delay: 0.5s;
+}
+
+#win-message::after
+{
+    content: "";
+    position: absolute;
+    background-color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: -60px;
+    bottom: -60px;
+    animation-delay: 0.5s;
 }
 
 
@@ -729,9 +956,6 @@ body{
 {
     flex-grow: 8;
 }
-
-
-
 
 #display-bttm.output
 {
@@ -802,10 +1026,12 @@ body{
     align-items: center;
     letter-spacing: 2px;
 }
+
 .timer-element
 {
     text-align: center;
 }
+
 #dot-separator
 {
     width: 5px;
@@ -824,7 +1050,14 @@ body{
     background: repeating-radial-gradient(circle, transparent 0px, transparent 2%, rgba(77, 76, 76, 0.2) 4%),
     repeating-conic-gradient(from 0deg, transparent 0deg 30deg,  rgba(255, 255, 255, 0.2) 30deg 60deg, rgba(252, 247, 247, 0.2) 60deg 90deg);    
     cursor: pointer;
-    transform: rotate(0deg);    
+    transform: rotate(0deg);
+       
+}
+
+.heat-knob
+{
+    transform: rotate(0deg);
+    transition: 0.8s; 
 }
 
 .knob-shadow
@@ -863,9 +1096,9 @@ body{
     top: 50%;
     left: 5%;
     transform: translateY(-50%);
-    width: 15px;
-    height: 3px;
-    border-radius: 25%;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
     background: rgba(0, 0, 0, 0.8);
     border: 1px black solid;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.5),
@@ -930,6 +1163,7 @@ body{
     border: 1px solid black;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5),
                 inset 0 0 1px 1px rgba(14, 13, 13, 0.5);
+    transition: 0.25s;
 }
 
 .heat-dot.running
@@ -945,32 +1179,108 @@ body{
                 1px 0 8px #d9ff00c2;
 }
 
+.heat-dot.set1
+{
+    background-color: #ff00ea;
+    box-shadow: inset 0 0 5px #ff00ea,
+                inset 2px 0 8px #ff00ea,
+                inset -2px 0 8px #ff00ea,
+                inset 2px 0 30px #ff00ea,
+                inset -2px 0 30px #ff00ea,
+                0 0 5px #ff00ea,
+                -1px 0 8px #ff00ea,
+                1px 0 8px #ff00ea;
+    
+}
 
+.heat-dot.set2
+{
+    background-color: #006eff;
+    box-shadow: inset 0 0 5px #006eff,
+                inset 2px 0 8px #006eff,
+                inset -2px 0 8px #006eff,
+                inset 2px 0 30px #006eff,
+                inset -2px 0 30px #006eff,
+                0 0 5px #006eff,
+                -1px 0 8px #006eff,
+                1px 0 8px #006eff;
+}
+
+
+.heat-dot.set3
+{
+    background-color: #15ff00;
+    box-shadow: inset 0 0 5px #00ff0d,
+                inset 2px 0 8px #00ff0d,
+                inset -2px 0 8px #00ff0d,
+                inset 2px 0 30px #00ff0d,
+                inset -2px 0 30px #00ff0d,
+                0 0 5px #00ff0d,
+                -1px 0 8px #00ff0d,
+                1px 0 8px #00ff0d;
+}
+
+.heat-dot.set4
+{
+    background-color: #ff9100;
+    box-shadow: inset 0 0 5px #ff9100,
+                inset 2px 0 8px #ff9100,
+                inset -2px 0 8px #ff9100,
+                inset 2px 0 30px #ff9100,
+                inset -2px 0 30px #ff9100,
+                0 0 5px #ff9100,
+                -1px 0 8px #ff9100,
+                1px 0 8px #ff9100;
+}
+
+.heat-dot.set5
+{
+    background-color: #ff4800;
+    box-shadow: inset 0 0 5px #ff0000,
+                inset 2px 0 8px #ff0000,
+                inset -2px 0 8px #ff0000,
+                inset 2px 0 30px #ff0000,
+                inset -2px 0 30px #ff0000,
+                0 0 5px #ff0000,
+                -1px 0 8px #ff0000,
+                1px 0 8px #ff0000;
+}
+
+.heat-dot.set6
+{
+    background-color: #ff0000;
+    box-shadow: inset 0 0 5px #ff0000,
+                inset 2px 0 8px #ff0000,
+                inset -2px 0 8px #ff0000,
+                inset 2px 0 30px #ff0000,
+                inset -2px 0 30px #ff0000,
+                0 0 5px #ff0000,
+                -1px 0 8px #ff0000,
+                1px 0 8px #ff0000;
+}
 
 #input{
-    width: 70%;  
+    width: 80%;
+    height: 60%;
     position: absolute;
-    top: 85%;
+    top: 3%;
     left: 50%;
-    transform: translate(-50%, -50%);    
+    transform: translate(-50%, 0);    
     display: flex;
     flex-wrap: wrap;   
     justify-content: center;
-    align-items: center;
-    padding: 25px;
+    align-items: stretch;   
 }
 
 
 /*  INPUT - BUTTONS */
 .button{    
-    font-size: 2em;
-    color: #0c0c0c;
-    /* height: calc((100% / 13) - 15px);
-    width: calc((100% / 13) - 15px);   */
-    height: calc(7% - 10px);
-    width: calc(7% - 10px);   
-    outline: none;
-    margin: 10px;
+    font-size: 1.5em;
+    color: #0c0c0c;    
+    height: 7%;
+    width: 20%;
+    outline: none;    
+    margin: 0 5%;
     border: none;
     cursor: pointer;
     text-transform: uppercase;
@@ -986,9 +1296,11 @@ body{
 }
 
 .button.active{
-    color: #00ffe7;
-    text-shadow: 0 0 15px #00a1ff,
-                 0 0 30px #00a1ff;
+    color: rgb(148, 111, 56); 
+
+     
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.5),
+                 0 0 35px rgba(150, 218, 23, 0.685);    
     box-shadow: inset 0  2px 5px rgba(0, 0, 0, 0.5),
                 inset 0 -2px 5px rgba(0, 0, 0, 0.5),
                 inset -2px 0 5px rgba(0, 0, 0, 0.5),
@@ -996,8 +1308,8 @@ body{
                 0 0 2px 2px #000,
                 inset 0 0 0 1px #000,
                 0 0 0 5px #313131,
-                 0 0 0 7px #00ffe7,
-                 0 0 15px 8px #00a1ff;
+                 0 0 0 7px rgba(15, 180, 29, 0.685),
+                 0 0 15px 8px rgba(23, 218, 39, 0.685);
 }
 
 /* OUTPUT CUBE */
@@ -1006,12 +1318,13 @@ body{
     position: absolute;
     top: 50%;
     left: 50%;   
-    transform: translate(-50%, -50%);  
-    color: thistle;
+    transform: translate(-50%, -50%);    
     text-align: center;    
-    font-size: 1.8em;
+    font-size: 2em;
     font-weight: bold;
-    color: #0c0c0c;
+    color: rgb(148, 111, 56);  
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.5),
+                 0 0 35px rgba(150, 218, 23, 0.685);
     text-transform: uppercase;
 }
 
@@ -1029,14 +1342,13 @@ body{
     text-shadow: 0 0 15px rgba(255, 255, 0, 0.5),
                  0 0 35px rgba(150, 218, 23, 0.685);
     transition: text-shadow 1s , color 0.5s;
-   
 }
 
 .cube
 {    
     transform-style: preserve-3d;
-    width: 30px;
-    height: 30px;    
+    width: 40px;
+    height: 40px;    
     margin-left: 4px;
     margin-right: 4px;   
 }
@@ -1055,7 +1367,6 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-    
 }
 
 .wall
@@ -1075,62 +1386,62 @@ body{
 
 .wall-front
 {     
-    transform: translateZ(15px);    
+    transform: translateZ(20px);    
 }
 
 .front-inner
 {
-    transform: translateZ(14px);  
+    transform: translateZ(19px);  
 }
 
 .wall-back
 {
-    transform: translateZ(-15px) rotateZ(-90deg) rotateY(180deg); 
+    transform: translateZ(-20px) rotateZ(-90deg) rotateY(180deg); 
 }
 
 .back-inner
 {
-    transform: translateZ(-14px); 
+    transform: translateZ(-19px); 
 }
 
 .wall-right
 {
-    transform: translateX(15px) rotateY(90deg);   
+    transform: translateX(20px) rotateY(90deg);   
 }
 
 .right-inner
 {
-    transform: translateX(14px) rotateY(90deg);
+    transform: translateX(19px) rotateY(90deg);
 }
 
 .wall-left
 {
-    transform: translateX(-15px) rotateY(90deg);  
+    transform: translateX(-20px) rotateY(90deg);  
 }
 
 .left-inner
 {
-    transform: translateX(-14px) rotateY(90deg);
+    transform: translateX(-19px) rotateY(90deg);
 }
 
 .wall-top
 {
-    transform: translateY(15px) rotateX(90deg);  
+    transform: translateY(20px) rotateX(90deg);  
 }
 
 .top-inner
 {
-    transform: translateY(14px) rotateX(90deg); 
+    transform: translateY(19px) rotateX(90deg); 
 }
 
 .wall-bottom
 {
-    transform: translateY(-15px) rotateX(90deg);   
+    transform: translateY(-20px) rotateX(90deg);   
 }
 
 .bottom-inner
 {
-    transform: translateY(-14px) rotateX(90deg); 
+    transform: translateY(-19px) rotateX(90deg); 
 }
 
 .inside-wall.x
@@ -1150,12 +1461,10 @@ body{
 
 .light-on
 {
-    color: #00ffe7;
-    text-shadow: 0 5px 30px #00a1ff,
-                 0 0 50px #00a1ff;
+    color: rgb(230, 150, 30);  
+    text-shadow: 0 0 15px rgba(255, 255, 0, 0.5),
+                 0 0 35px rgba(150, 218, 23, 0.685);
 }
-
-
 
 /* ANIMATIONS */
 
@@ -1170,7 +1479,6 @@ body{
     }
 }
 
-
 @keyframes lights-on
 {
     0%{
@@ -1182,14 +1490,51 @@ body{
     }
 }
 
-@keyframes rotate-door
+@keyframes bowl-animation-step1
 {
     0%{
-        transform: rotate3d(0,0,0,0deg);
+        transform: translate(-50%, -50%) rotate(0deg);;
     }
 
+    25%{
+        transform: translate(-50%, -50%) rotate(-25deg);;
+    }
+
+    50%{
+        transform: translate(-50%, -50%) rotate(0deg);;
+    }
+
+    75%{
+        transform: translate(-50%, -50%) rotate(25deg);;
+    }
+
+
     100%{
-        transform: rotate3d(-1,0,0,80deg);
+        transform: translate(-50%, -50%) rotate(0deg);;
+    }
+}
+
+@keyframes water-animation-step1
+{
+    0%{
+        transform: rotateZ(0deg);;
+    }
+
+    25%{
+        transform: rotateZ(25deg);;
+    }
+
+    50%{
+        transform: rotateZ(0deg);;
+    }
+
+    75%{
+        transform: rotateZ(-25deg);;
+    }
+
+
+    100%{
+        transform: rotateZ(0deg);;
     }
 }
 
@@ -1226,3 +1571,65 @@ body{
         transform: translate(0, 0) rotateY(0deg);
     }   
 }
+
+@keyframes animateEven
+{
+    0%
+    {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+        filter: blur(5px);
+    }
+
+    100%
+    {
+        transform: translate(100px, -600px) scale(10);
+        opacity: 1;
+        filter: blur(10px);
+    }
+}
+
+@keyframes animateOdd
+{
+    0%
+    {
+        transform: translate(0,0) scale(1);
+        opacity: 1;
+        filter: blur(5px);
+    }
+
+    100%
+    {
+        transform: translate(-100px, -600px) scale(10);
+        opacity: 1;
+        filter: blur(10px);
+    }
+}
+
+@keyframes animateBlood
+{
+    0%
+    {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    100%
+    {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+@keyframes animateWinMessage
+{
+     0%
+    {
+        opacity: 0;
+    }
+
+    100%
+    {
+        opacity: 1;
+    }
+}
+
